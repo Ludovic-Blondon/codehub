@@ -1,17 +1,12 @@
 ---
 title: Terminal
-slug: terminal
+description: Raccourcis essentiels et astuces pour optimiser votre productivité dans le terminal
 ---
-
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
-
-<Tabs items={['Terminal']}>
-  <Tab value="Terminal">
 
 ## Raccourcis essentiels
 
-| Raccourci                                    | Action                                                     |
-| -------------------------------------------- | ---------------------------------------------------------- |
+| Raccourci                                    | Action                                                      |
+| -------------------------------------------- | ----------------------------------------------------------- |
 | <kbd>Ctrl</kbd> + <kbd>A</kbd>               | Aller au début de la ligne                                 |
 | <kbd>Ctrl</kbd> + <kbd>E</kbd>               | Aller à la fin de la ligne                                 |
 | <kbd>Ctrl</kbd> + <kbd>U</kbd>               | Supprimer du début jusqu’au curseur                        |
@@ -23,21 +18,17 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 | <kbd>Ctrl</kbd> + <kbd>D</kbd>               | Fermer la session / Supprimer le caractère sous le curseur |
 | <kbd>Tab</kbd>                               | Auto-complétion                                            |
 | <kbd>↑</kbd> / <kbd>↓</kbd>                  | Naviguer dans l’historique des commandes                   |
-| <kbd>Cmd</kbd> + <kbd>D</kbd>                | Scinder le terminal verticalement (split à droite)         |
-| <kbd>Cmd</kbd> + <kbd>⇧</kbd> + <kbd>D</kbd> | Scinder horizontalement (split en bas)                     |
+| <kbd>⌘</kbd> + <kbd>D</kbd>                | Scinder le terminal verticalement (split à droite)         |
+| <kbd>⌘</kbd> + <kbd>⇧</kbd> + <kbd>D</kbd> | Scinder horizontalement (split en bas)                     |
 
 ### Exemples rapides
 
-- Préfixer une ligne : tape la commande, puis <kbd>Ctrl</kbd>+<kbd>A</kbd> → écris `sudo ` au début.
-- Couper/recoller : <kbd>Ctrl</kbd>+<kbd>U</kbd> pour couper du début au curseur, puis <kbd>Ctrl</kbd>+<kbd>Y</kbd> pour recoller.
+- Préfixer une ligne : tape la commande, puis <kbd>Ctrl</kbd> + <kbd>A</kbd> → écris `sudo ` au début.
+- Couper/recoller : <kbd>Ctrl</kbd> + <kbd>U</kbd> pour couper du début au curseur, puis <kbd>Ctrl</kbd> + <kbd>Y</kbd> pour recoller.
 
-> 🔴 Remarque  
+> 🔴 **Remarque**
+> 
 > Ces raccourcis sont ceux du mode **Emacs** (valeur par défaut) de `zsh`/`bash` dans Terminal.app.  
-> Pour **fermer un volet scindé**, utilise <kbd>Cmd</kbd> + <kbd>⇧</kbd> + <kbd>W</kbd>.
+> Pour **fermer un volet scindé**, utilise <kbd>⌘</kbd> + <kbd>⇧</kbd> + <kbd>W</kbd>.
 >
-> <kbd>Ctrl</kbd> + <kbd>L</kbd> nettoie l’écran courant, tandis que <kbd>
->   Cmd
-> </kbd> + <kbd>K</kbd> efface aussi le “scrollback”.
-
-  </Tab>
-</Tabs>
+> <kbd>Ctrl</kbd> + <kbd>L</kbd> nettoie l'écran courant, tandis que <kbd>⌘</kbd> + <kbd>K</kbd> efface aussi le "scrollback".

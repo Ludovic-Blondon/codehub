@@ -1,12 +1,7 @@
 ---
 title: TMUX
-slug: tmux
+description: Guide des raccourcis TMUX pour gérer efficacement vos sessions et fenêtres terminal
 ---
-
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
-
-<Tabs items={['tmux']}>
-  <Tab value="tmux">
 
 ## Raccourcis essentiels (après le préfixe <kbd>Ctrl</kbd> + <kbd>b</kbd>)
 
@@ -42,16 +37,13 @@ tmux kill-session -t nom    # Fermer une session
 
 ### Exemples rapides
 
-- **Détacher/Revenir** : <kbd>Ctrl</kbd>+<kbd>b</kbd>, <kbd>d</kbd> puis `tmux attach -t nom`.
-- **Renommer une fenêtre** : <kbd>Ctrl</kbd>+<kbd>b</kbd>, <kbd>,</kbd> → entre un nom clair.
-- **Zoomer un panneau** pour se concentrer : <kbd>Ctrl</kbd>+<kbd>b</kbd>, <kbd>z</kbd>.
-- **Naviguer vite** : <kbd>Ctrl</kbd>+<kbd>b</kbd> + flèches pour passer d’un panneau à l’autre.
+- **Détacher/Revenir** : <kbd>Ctrl</kbd> + <kbd>b</kbd>, <kbd>d</kbd> puis `tmux attach -t nom`.
+- **Renommer une fenêtre** : <kbd>Ctrl</kbd> + <kbd>b</kbd>, <kbd>,</kbd> → entre un nom clair.
+- **Zoomer un panneau** pour se concentrer : <kbd>Ctrl</kbd> + <kbd>b</kbd>, <kbd>z</kbd>.
+- **Naviguer vite** : <kbd>Ctrl</kbd> + <kbd>b</kbd> + flèches pour passer d'un panneau à l'autre.
 
-> 🔴 Remarque
+> 🔴 **Remarque**
 >
-> - Le **préfixe** par défaut est <kbd>Ctrl</kbd>+<kbd>b</kbd>. Tu peux le changer (ex. <kbd>Ctrl</kbd>+<kbd>a</kbd>) dans `~/.tmux.conf`.
+> - Le **préfixe** par défaut est <kbd>Ctrl</kbd> + <kbd>b</kbd>. Tu peux le changer (ex. <kbd>Ctrl</kbd> + <kbd>a</kbd>) dans `~/.tmux.conf`.
 > - Activer la **souris** : ajoute `set -g mouse on` dans `~/.tmux.conf`, puis recharge avec `tmux source-file ~/.tmux.conf`.
 > - Sur macOS, pour copier vers le presse-papiers système en mode copie, configure un _copy-pipe_ (ex. vers `pbcopy`) dans ta config si besoin.
-
-  </Tab>
-</Tabs>

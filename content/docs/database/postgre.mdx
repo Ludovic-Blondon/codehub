@@ -1,0 +1,512 @@
+---
+id: postgre
+title: PostgreSQL
+slug: postgre-sql
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+# PostgreSQL - Guide Complet
+
+PostgreSQL est un système de gestion de base de données relationnelle open source puissant et extensible. Ce guide répertorie les commandes essentielles et les bonnes pratiques.
+
+## 🚀 Commandes psql
+
+### Navigation et Connexion
+
+| Commande                | Description                                      |
+| ----------------------- | ------------------------------------------------ |
+| `\l` ou `\list`         | Lister toutes les bases de données               |
+| `\c nom_db`             | Se connecter à une base de données               |
+| `\c nom_db utilisateur` | Se connecter avec un utilisateur spécifique      |
+| `\conninfo`             | Afficher les informations de connexion actuelles |
+| `\q`                    | Quitter le client psql                           |
+| `\! clear`              | Effacer l'écran (Linux/Mac)                      |
+
+### Exploration des Objets
+
+| Commande        | Description                                     |
+| --------------- | ----------------------------------------------- |
+| `\dt`           | Lister les tables du schéma courant             |
+| `\dt+`          | Lister les tables avec taille et description    |
+| `\d nom_table`  | Afficher la structure d'une table               |
+| `\d+ nom_table` | Structure détaillée avec commentaires et taille |
+| `\dn`           | Lister les schémas                              |
+| `\dn+`          | Lister les schémas avec permissions             |
+| `\dv`           | Lister les vues                                 |
+| `\di`           | Lister les index                                |
+| `\df`           | Lister les fonctions                            |
+| `\du`           | Lister les utilisateurs (roles)                 |
+| `\dp` ou `\z`   | Afficher les permissions des tables             |
+
+### Options d'Affichage
+
+| Commande            | Description                                         |
+| ------------------- | --------------------------------------------------- |
+| `\x`                | Activer/Désactiver l'affichage vertical (expanded)  |
+| `\x auto`           | Mode vertical automatique selon la largeur          |
+| `\pset null 'NULL'` | Définir l'affichage des valeurs NULL                |
+| `\pset border 2`    | Afficher les bordures complètes                     |
+| `\timing`           | Activer/Désactiver l'affichage du temps d'exécution |
+| `\a`                | Basculer entre mode aligné/non aligné               |
+| `\H`                | Activer/Désactiver le mode HTML                     |
+
+### Historique et Aide
+
+| Commande          | Description                                |
+| ----------------- | ------------------------------------------ |
+| `\h`              | Aide sur les commandes SQL                 |
+| `\h nom_commande` | Aide sur une commande SQL spécifique       |
+| `\?`              | Aide sur les commandes psql                |
+| `\s`              | Afficher l'historique des commandes        |
+| `\s fichier`      | Sauvegarder l'historique dans un fichier   |
+| `\i fichier.sql`  | Exécuter un fichier SQL                    |
+| `\e`              | Ouvrir l'éditeur pour composer une requête |
+| `\ef fonction`    | Éditer une fonction                        |
+
+## 📊 Requêtes SQL Essentielles
+
+<Tabs items={['DDL', 'DML', 'SELECT', 'JSON']}>
+<Tab value="DDL">
+
+### Data Definition Language
+
+```sql
+-- Créer une base de données
+CREATE DATABASE nom_base;
+
+-- Créer une table
+CREATE TABLE utilisateurs (
+    id SERIAL PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Ajouter une colonne
+ALTER TABLE utilisateurs ADD COLUMN age INTEGER;
+
+-- Modifier une colonne
+ALTER TABLE utilisateurs ALTER COLUMN nom TYPE VARCHAR(200);
+
+-- Supprimer une colonne
+ALTER TABLE utilisateurs DROP COLUMN age;
+
+-- Créer un index
+CREATE INDEX idx_email ON utilisateurs(email);
+
+-- Créer une vue
+CREATE VIEW utilisateurs_actifs AS
+SELECT * FROM utilisateurs WHERE actif = true;
+```
+
+</Tab>
+<Tab value="DML">
+
+### Data Manipulation Language
+
+```sql
+-- Insertion simple
+INSERT INTO utilisateurs (nom, email)
+VALUES ('Jean Dupont', 'jean@example.com');
+
+-- Insertion multiple
+INSERT INTO utilisateurs (nom, email) VALUES
+    ('Alice Martin', 'alice@example.com'),
+    ('Bob Leroy', 'bob@example.com');
+
+-- Insertion avec retour
+INSERT INTO utilisateurs (nom, email)
+VALUES ('Marie Claire', 'marie@example.com')
+RETURNING id, nom;
+
+-- Mise à jour
+UPDATE utilisateurs
+SET email = 'nouveau@example.com'
+WHERE id = 1;
+
+-- Mise à jour avec jointure
+UPDATE commandes c
+SET statut = 'livré'
+FROM utilisateurs u
+WHERE c.utilisateur_id = u.id
+AND u.pays = 'France';
+
+-- Suppression
+DELETE FROM utilisateurs WHERE id = 5;
+
+-- UPSERT (INSERT ON CONFLICT)
+INSERT INTO utilisateurs (email, nom)
+VALUES ('test@example.com', 'Test User')
+ON CONFLICT (email)
+DO UPDATE SET nom = EXCLUDED.nom;
+```
+
+</Tab>
+<Tab value="SELECT">
+
+### Requêtes SELECT Avancées
+
+```sql
+-- WITH (CTE - Common Table Expression)
+WITH ventes_mensuelles AS (
+    SELECT
+        DATE_TRUNC('month', date_vente) AS mois,
+        SUM(montant) AS total
+    FROM ventes
+    GROUP BY DATE_TRUNC('month', date_vente)
+)
+SELECT * FROM ventes_mensuelles
+WHERE total > 10000;
+
+-- Window Functions
+SELECT
+    nom,
+    departement,
+    salaire,
+    AVG(salaire) OVER (PARTITION BY departement) AS salaire_moyen_dept,
+    RANK() OVER (PARTITION BY departement ORDER BY salaire DESC) AS rang
+FROM employes;
+
+-- GROUPING SETS
+SELECT
+    categorie,
+    sous_categorie,
+    SUM(prix) AS total
+FROM produits
+GROUP BY GROUPING SETS (
+    (categorie, sous_categorie),
+    (categorie),
+    ()
+);
+
+-- Requête récursive
+WITH RECURSIVE hierarchie AS (
+    SELECT id, nom, manager_id, 1 AS niveau
+    FROM employes
+    WHERE manager_id IS NULL
+
+    UNION ALL
+
+    SELECT e.id, e.nom, e.manager_id, h.niveau + 1
+    FROM employes e
+    JOIN hierarchie h ON e.manager_id = h.id
+)
+SELECT * FROM hierarchie;
+```
+
+</Tab>
+<Tab value="JSON">
+
+### Manipulation JSON/JSONB
+
+```sql
+-- Créer une table avec JSONB
+CREATE TABLE evenements (
+    id SERIAL PRIMARY KEY,
+    donnees JSONB NOT NULL
+);
+
+-- Insertion de données JSON
+INSERT INTO evenements (donnees) VALUES
+    ('{"type": "click", "page": "/home", "user": {"id": 1, "name": "Alice"}}'),
+    ('{"type": "view", "page": "/product", "user": {"id": 2, "name": "Bob"}}');
+
+-- Requêtes sur JSON
+-- Accès simple
+SELECT donnees->>'type' AS type_evenement FROM evenements;
+
+-- Accès imbriqué
+SELECT donnees->'user'->>'name' AS nom_utilisateur FROM evenements;
+
+-- Filtre avec opérateur @>
+SELECT * FROM evenements
+WHERE donnees @> '{"type": "click"}';
+
+-- Agrégation JSON
+SELECT jsonb_agg(donnees) FROM evenements;
+
+-- Mise à jour JSON
+UPDATE evenements
+SET donnees = jsonb_set(donnees, '{user,status}', '"active"')
+WHERE id = 1;
+```
+
+</Tab>
+</Tabs>
+
+## 🔧 Administration
+
+<Tabs items={['Utilisateurs & Permissions', 'Maintenance', 'Backup & Restore', 'Monitoring']}>
+<Tab value="Utilisateurs & Permissions">
+
+### Gestion des Utilisateurs et Permissions
+
+```sql
+-- Créer un utilisateur
+CREATE USER nom_utilisateur WITH PASSWORD 'mot_de_passe';
+
+-- Créer un rôle
+CREATE ROLE nom_role;
+
+-- Donner des privilèges
+GRANT ALL PRIVILEGES ON DATABASE nom_db TO nom_utilisateur;
+GRANT SELECT, INSERT ON TABLE nom_table TO nom_utilisateur;
+GRANT USAGE ON SCHEMA nom_schema TO nom_utilisateur;
+
+-- Révoquer des privilèges
+REVOKE INSERT ON TABLE nom_table FROM nom_utilisateur;
+
+-- Modifier un utilisateur
+ALTER USER nom_utilisateur WITH SUPERUSER;
+ALTER USER nom_utilisateur WITH PASSWORD 'nouveau_mdp';
+
+-- Attribuer un rôle
+GRANT nom_role TO nom_utilisateur;
+
+-- Lister les permissions
+SELECT * FROM information_schema.role_table_grants
+WHERE grantee = 'nom_utilisateur';
+```
+
+</Tab>
+<Tab value="Maintenance">
+
+### Maintenance et Optimisation
+
+```sql
+-- Analyser les statistiques
+ANALYZE nom_table;
+ANALYZE; -- Toute la base
+
+-- VACUUM (nettoyer l'espace)
+VACUUM nom_table;
+VACUUM FULL nom_table; -- Plus agressif mais lock la table
+VACUUM ANALYZE nom_table; -- Les deux en une fois
+
+-- Réindexer
+REINDEX TABLE nom_table;
+REINDEX DATABASE nom_db;
+
+-- Vérifier la taille
+SELECT
+    pg_size_pretty(pg_database_size('nom_db')) AS taille_db;
+
+SELECT
+    schemaname AS schema,
+    tablename AS table,
+    pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) AS taille
+FROM pg_tables
+ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC
+LIMIT 10;
+
+-- Identifier les requêtes lentes
+SELECT
+    query,
+    calls,
+    total_time,
+    mean_time,
+    max_time
+FROM pg_stat_statements
+ORDER BY mean_time DESC
+LIMIT 10;
+```
+
+</Tab>
+<Tab value="Backup & Restore">
+
+### Sauvegarde et Restauration
+
+```bash
+# Backup complet d'une base
+pg_dump nom_db > backup.sql
+pg_dump -Fc nom_db > backup.dump  # Format custom (compressé)
+
+# Backup avec options
+pg_dump -h localhost -U utilisateur -d nom_db -f backup.sql
+
+# Backup d'une table spécifique
+pg_dump -t nom_table nom_db > table_backup.sql
+
+# Backup schéma uniquement
+pg_dump -s nom_db > schema.sql
+
+# Backup données uniquement
+pg_dump -a nom_db > data.sql
+
+# Restauration
+psql nom_db < backup.sql
+
+# Restauration format custom
+pg_restore -d nom_db backup.dump
+
+# Backup de toutes les bases
+pg_dumpall > all_databases.sql
+
+# Restauration avec pg_restore
+pg_restore -h localhost -U utilisateur -d nom_db -v backup.dump
+```
+
+</Tab>
+<Tab value="Monitoring">
+
+### Monitoring et Diagnostics
+
+```sql
+-- Connexions actives
+SELECT
+    pid,
+    usename,
+    application_name,
+    client_addr,
+    state,
+    query
+FROM pg_stat_activity
+WHERE state != 'idle';
+
+-- Tuer une connexion
+SELECT pg_terminate_backend(pid)
+FROM pg_stat_activity
+WHERE pid = 12345;
+
+-- Locks actifs
+SELECT
+    l.pid,
+    a.usename,
+    l.locktype,
+    l.mode,
+    l.granted,
+    a.query
+FROM pg_locks l
+JOIN pg_stat_activity a ON l.pid = a.pid
+WHERE NOT l.granted;
+
+-- Cache hit ratio
+SELECT
+    sum(heap_blks_hit) / (sum(heap_blks_hit) + sum(heap_blks_read)) AS cache_hit_ratio
+FROM pg_statio_user_tables;
+
+-- Tables les plus volumineuses
+SELECT
+    schemaname,
+    tablename,
+    pg_size_pretty(pg_relation_size(schemaname||'.'||tablename)) AS taille
+FROM pg_stat_user_tables
+ORDER BY pg_relation_size(schemaname||'.'||tablename) DESC
+LIMIT 10;
+```
+
+</Tab>
+</Tabs>
+
+## 💡 Tips & Bonnes Pratiques
+
+<Tabs items={['Performance', 'Sécurité', 'Développement']}>
+<Tab value="Performance">
+
+### Optimisation des Performances
+
+1. **Indexes**
+
+   - Créez des indexes sur les colonnes utilisées dans WHERE, JOIN, ORDER BY
+   - Utilisez `EXPLAIN ANALYZE` pour analyser vos requêtes
+   - Évitez les indexes inutiles (coût de maintenance)
+
+2. **Requêtes**
+
+   ```sql
+   -- Utiliser EXPLAIN pour analyser
+   EXPLAIN ANALYZE SELECT * FROM table WHERE condition;
+
+   -- Éviter SELECT *
+   SELECT col1, col2 FROM table;  -- Mieux que SELECT *
+
+   -- Utiliser LIMIT pour les tests
+   SELECT * FROM grande_table LIMIT 100;
+   ```
+
+3. **Configuration**
+   - Ajustez `shared_buffers` (généralement 25% de la RAM)
+   - Configurez `work_mem` pour les tris et jointures
+   - Activez `pg_stat_statements` pour le monitoring
+
+</Tab>
+<Tab value="Sécurité">
+
+### Bonnes Pratiques de Sécurité
+
+1. **Authentification**
+
+   - Utilisez toujours des mots de passe forts
+   - Configurez `pg_hba.conf` correctement
+   - Préférez l'authentification par certificat en production
+
+2. **Permissions**
+
+   ```sql
+   -- Principe du moindre privilège
+   REVOKE ALL ON SCHEMA public FROM PUBLIC;
+
+   -- Créer des rôles spécifiques
+   CREATE ROLE lecture_seule;
+   GRANT SELECT ON ALL TABLES IN SCHEMA public TO lecture_seule;
+   ```
+
+3. **Chiffrement**
+   - Activez SSL/TLS pour les connexions
+   - Utilisez `pgcrypto` pour chiffrer les données sensibles
+
+</Tab>
+<Tab value="Développement">
+
+### Tips pour le Développement
+
+1. **Transactions**
+
+   ```sql
+   BEGIN;
+   -- Vos opérations
+   SAVEPOINT mon_savepoint;
+   -- Opération risquée
+   ROLLBACK TO mon_savepoint;  -- Si erreur
+   COMMIT;  -- Si tout va bien
+   ```
+
+2. **Contraintes utiles**
+
+   ```sql
+   -- CHECK constraint
+   ALTER TABLE produits
+   ADD CONSTRAINT prix_positif CHECK (prix > 0);
+
+   -- Exclusion constraint
+   CREATE TABLE reservations (
+       salle TEXT,
+       periode TSRANGE,
+       EXCLUDE USING GIST (salle WITH =, periode WITH &&)
+   );
+   ```
+
+3. **Types personnalisés**
+
+   ```sql
+   -- Créer un type ENUM
+   CREATE TYPE statut_commande AS ENUM ('en_attente', 'traitement', 'expédié', 'livré');
+
+   -- Créer un domaine
+   CREATE DOMAIN email AS TEXT CHECK (VALUE ~ '^[^@]+@[^@]+\.[^@]+$');
+   ```
+
+</Tab>
+</Tabs>
+
+## 📚 Ressources Utiles
+
+- [Documentation officielle PostgreSQL](https://www.postgresql.org/docs/)
+- [PostgreSQL Wiki](https://wiki.postgresql.org/)
+- [PgTune - Optimisation de configuration](https://pgtune.leopard.in.ua/)
+- [EXPLAIN Visualizer](https://explain.depesz.com/)
+
+---
+
+_Ce guide est un document vivant. N'hésitez pas à le compléter avec vos propres découvertes et cas d'usage !_

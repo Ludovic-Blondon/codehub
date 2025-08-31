@@ -1,0 +1,289 @@
+---
+title: MongoDB
+slug: mongodb
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+# MongoDB - Guide Complet
+
+MongoDB est une base de données NoSQL orientée documents, conçue pour la scalabilité et la flexibilité. Ce guide répertorie les commandes essentielles et les bonnes pratiques.
+
+## 🚀 Commandes MongoDB Shell
+
+### Navigation et Connexion
+
+| Commande                              | Description                          |
+| ------------------------------------- | ------------------------------------ |
+| `mongosh`                             | Démarrer le shell MongoDB            |
+| `mongosh "mongodb://localhost:27017"` | Se connecter avec une URI            |
+| `show dbs` ou `show databases`        | Lister toutes les bases de données   |
+| `use nom_db`                          | Basculer vers une base de données    |
+| `db`                                  | Afficher la base de données courante |
+| `db.getName()`                        | Obtenir le nom de la base courante   |
+| `exit` ou `quit()`                    | Quitter le shell MongoDB             |
+| `cls`                                 | Effacer l'écran                      |
+| `db.getMongo()`                       | Obtenir l'objet de connexion         |
+
+### Exploration des Collections
+
+| Commande                                 | Description                           |
+| ---------------------------------------- | ------------------------------------- |
+| `show collections`                       | Lister toutes les collections         |
+| `db.getCollectionNames()`                | Lister les collections (format array) |
+| `db.collection.countDocuments()`         | Compter les documents                 |
+| `db.collection.estimatedDocumentCount()` | Estimation rapide du nombre           |
+| `db.collection.stats()`                  | Statistiques détaillées               |
+| `db.collection.dataSize()`               | Taille des données                    |
+| `db.collection.totalIndexSize()`         | Taille des index                      |
+| `db.collection.getIndexes()`             | Lister les index                      |
+| `db.stats()`                             | Statistiques de la base               |
+| `db.serverStatus()`                      | État du serveur                       |
+
+### Gestion des Utilisateurs
+
+| Commande          | Description                      |
+| ----------------- | -------------------------------- |
+| `show users`      | Lister les utilisateurs de la DB |
+| `show roles`      | Lister les rôles disponibles     |
+| `db.getUsers()`   | Détails des utilisateurs         |
+| `db.getRoles()`   | Détails des rôles                |
+| `db.currentOp()`  | Opérations en cours              |
+| `db.killOp(opid)` | Tuer une opération               |
+| `db.version()`    | Version de MongoDB               |
+| `db.hostInfo()`   | Informations sur l'hôte          |
+
+### Commandes d'Aide
+
+| Commande                      | Description                         |
+| ----------------------------- | ----------------------------------- |
+| `help`                        | Aide générale                       |
+| `db.help()`                   | Aide sur les méthodes de base       |
+| `db.collection.help()`        | Aide sur les méthodes de collection |
+| `db.collection.find().help()` | Aide sur les curseurs               |
+| `load("script.js")`           | Charger un script JavaScript        |
+| `print()`                     | Afficher dans la console            |
+| `printjson()`                 | Afficher en format JSON             |
+| `typeof`                      | Type d'une variable                 |
+
+## 📊 Opérations CRUD
+
+<Tabs items={['Create', 'Read', 'Update', 'Delete']}>
+<Tab value="Create">
+
+### Insertion de Documents
+
+```javascript
+// Insertion simple
+db.users.insertOne({
+  name: "Jean Dupont",
+  email: "jean@example.com",
+  age: 30,
+  createdAt: new Date(),
+});
+
+// Insertion multiple
+db.users.insertMany([
+  {
+    name: "Alice Martin",
+    email: "alice@example.com",
+    age: 25,
+    tags: ["premium", "active"],
+  },
+  {
+    name: "Bob Leroy",
+    email: "bob@example.com",
+    age: 35,
+    address: {
+      street: "123 rue de la Paix",
+      city: "Paris",
+      zipCode: "75001",
+    },
+  },
+]);
+
+// Insertion avec options
+db.products.insertOne(
+  {
+    name: "Laptop",
+    price: 999.99,
+    stock: 50,
+  },
+  {
+    writeConcern: { w: "majority", wtimeout: 5000 },
+  }
+);
+
+// Bulk Insert pour performance
+db.logs.bulkWrite([
+  { insertOne: { document: { event: "login", timestamp: new Date() } } },
+  { insertOne: { document: { event: "click", timestamp: new Date() } } },
+  { insertOne: { document: { event: "logout", timestamp: new Date() } } },
+]);
+```
+
+</Tab>
+<Tab value="Read">
+
+### Lecture de Documents
+
+```javascript
+// Find simple
+db.users.find();
+db.users.find().pretty(); // Format lisible
+
+// Find avec critères
+db.users.find({ age: { $gte: 25 } });
+db.users.find({
+  $and: [{ age: { $gte: 25 } }, { age: { $lte: 35 } }],
+});
+
+// Find avec projection
+db.users.find({ age: { $gte: 25 } }, { name: 1, email: 1, _id: 0 });
+
+// FindOne
+db.users.findOne({ email: "alice@example.com" });
+
+// Opérateurs de requête
+db.products.find({
+  $or: [{ price: { $lt: 100 } }, { category: "electronics" }],
+});
+
+// Requête sur les tableaux
+db.users.find({ tags: "premium" }); // Contient "premium"
+db.users.find({ tags: { $all: ["premium", "active"] } }); // Contient tous
+db.users.find({ tags: { $size: 2 } }); // Taille exacte
+
+// Requête sur documents imbriqués
+db.users.find({ "address.city": "Paris" });
+
+// Regex
+db.users.find({ name: /^Jean/i });
+
+// Exists
+db.users.find({ address: { $exists: true } });
+
+// Type checking
+db.users.find({ age: { $type: "number" } });
+
+// Curseur et méthodes
+db.users.find().sort({ age: -1 }).limit(10).skip(20);
+
+// Count
+db.users.countDocuments({ age: { $gte: 25 } });
+
+// Distinct
+db.users.distinct("city");
+```
+
+</Tab>
+<Tab value="Update">
+
+### Mise à Jour de Documents
+
+```javascript
+// UpdateOne
+db.users.updateOne(
+  { email: "jean@example.com" },
+  { $set: { age: 31, updatedAt: new Date() } }
+);
+
+// UpdateMany
+db.users.updateMany({ age: { $lt: 25 } }, { $set: { category: "young" } });
+
+// Opérateurs de mise à jour
+// $set - Définir une valeur
+db.users.updateOne({ _id: ObjectId("...") }, { $set: { status: "active" } });
+
+// $unset - Supprimer un champ
+db.users.updateOne(
+  { _id: ObjectId("...") },
+  { $unset: { temporaryField: "" } }
+);
+
+// $inc - Incrémenter
+db.products.updateOne({ name: "Laptop" }, { $inc: { stock: -1, sold: 1 } });
+
+// $push - Ajouter à un tableau
+db.users.updateOne({ email: "alice@example.com" }, { $push: { tags: "vip" } });
+
+// $pull - Retirer d'un tableau
+db.users.updateOne(
+  { email: "alice@example.com" },
+  { $pull: { tags: "inactive" } }
+);
+
+// $addToSet - Ajouter si unique
+db.users.updateOne(
+  { email: "alice@example.com" },
+  { $addToSet: { tags: "newsletter" } }
+);
+
+// $rename - Renommer un champ
+db.users.updateMany({}, { $rename: { oldFieldName: "newFieldName" } });
+
+// Upsert
+db.users.updateOne(
+  { email: "new@example.com" },
+  {
+    $set: { name: "Nouveau User" },
+    $setOnInsert: { createdAt: new Date() },
+  },
+  { upsert: true }
+);
+
+// FindAndModify
+db.users.findOneAndUpdate(
+  { email: "jean@example.com" },
+  { $inc: { loginCount: 1 } },
+  { returnDocument: "after" }
+);
+
+// ReplaceOne
+db.users.replaceOne(
+  { _id: ObjectId("...") },
+  {
+    name: "Remplacement Complet",
+    email: "new@example.com",
+    age: 40,
+  }
+);
+```
+
+</Tab>
+<Tab value="Delete">
+
+### Suppression de Documents
+
+```javascript
+// DeleteOne
+db.users.deleteOne({ email: "test@example.com" });
+
+// DeleteMany
+db.users.deleteMany({ status: "inactive" });
+
+// Delete avec condition
+db.logs.deleteMany({
+  timestamp: {
+    $lt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+  },
+});
+
+// FindOneAndDelete
+let deletedDoc = db.users.findOneAndDelete(
+  { email: "old@example.com" },
+  { projection: { name: 1, email: 1 } }
+);
+
+// Drop collection entière
+db.temporary_collection.drop();
+
+// Drop database
+db.dropDatabase();
+
+// Remove (deprecated mais encore utilisé)
+db.users.remove({ age: { $lt: 18 } });
+```
+
+</Tab>
+</Tabs>

@@ -1,0 +1,57 @@
+---
+title: TMUX
+slug: tmux
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+<Tabs items={['tmux']}>
+  <Tab value="tmux">
+
+## Raccourcis essentiels (après le préfixe <kbd>Ctrl</kbd> + <kbd>b</kbd>)
+
+| Raccourci                                                 | Action                                                                |
+| --------------------------------------------------------- | --------------------------------------------------------------------- |
+| <kbd>c</kbd>                                              | Nouvelle fenêtre                                                      |
+| <kbd>%</kbd>                                              | Split **vertical** (panneaux côte à côte)                             |
+| <kbd>"</kbd>                                              | Split **horizontal** (panneaux haut/bas)                              |
+| <kbd>←</kbd> / <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>→</kbd> | Changer de **panneau**                                                |
+| <kbd>n</kbd> / <kbd>p</kbd>                               | Fenêtre **suivante** / **précédente**                                 |
+| <kbd>w</kbd>                                              | Liste des fenêtres                                                    |
+| <kbd>x</kbd>                                              | **Fermer** le panneau actif                                           |
+| <kbd>&</kbd>                                              | **Fermer** la fenêtre active                                          |
+| <kbd>,</kbd>                                              | **Renommer** la fenêtre                                               |
+| <kbd>z</kbd>                                              | **Zoom** / dé-zoom du panneau                                         |
+| <kbd>d</kbd>                                              | **Détacher** la session (laisse tourner en arrière-plan)              |
+| <kbd>s</kbd>                                              | Sélecteur de **sessions**                                             |
+| <kbd>[</kbd>                                              | Mode **copie/scroll** (quitter avec <kbd>q</kbd> ou <kbd>Enter</kbd>) |
+| (en mode copie) <kbd>Espace</kbd> / <kbd>Enter</kbd>      | Début de sélection / **Copier**                                       |
+| <kbd>]</kbd>                                              | **Coller** (dernier buffer)                                           |
+| <kbd>:</kbd>                                              | **Invite de commande** tmux                                           |
+| <kbd>?</kbd>                                              | **Aide** / liste des commandes                                        |
+| <kbd>t</kbd>                                              | **Horloge** plein écran                                               |
+
+### Commandes directes (hors raccourcis)
+
+```bash
+tmux new -s nom             # Créer une session nommée
+tmux ls                     # Lister les sessions
+tmux attach -t nom          # Rejoindre une session
+tmux kill-session -t nom    # Fermer une session
+```
+
+### Exemples rapides
+
+- **Détacher/Revenir** : <kbd>Ctrl</kbd>+<kbd>b</kbd>, <kbd>d</kbd> puis `tmux attach -t nom`.
+- **Renommer une fenêtre** : <kbd>Ctrl</kbd>+<kbd>b</kbd>, <kbd>,</kbd> → entre un nom clair.
+- **Zoomer un panneau** pour se concentrer : <kbd>Ctrl</kbd>+<kbd>b</kbd>, <kbd>z</kbd>.
+- **Naviguer vite** : <kbd>Ctrl</kbd>+<kbd>b</kbd> + flèches pour passer d’un panneau à l’autre.
+
+> 🔴 Remarque
+>
+> - Le **préfixe** par défaut est <kbd>Ctrl</kbd>+<kbd>b</kbd>. Tu peux le changer (ex. <kbd>Ctrl</kbd>+<kbd>a</kbd>) dans `~/.tmux.conf`.
+> - Activer la **souris** : ajoute `set -g mouse on` dans `~/.tmux.conf`, puis recharge avec `tmux source-file ~/.tmux.conf`.
+> - Sur macOS, pour copier vers le presse-papiers système en mode copie, configure un _copy-pipe_ (ex. vers `pbcopy`) dans ta config si besoin.
+
+  </Tab>
+</Tabs>

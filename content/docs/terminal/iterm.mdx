@@ -1,0 +1,115 @@
+---
+title: iTerm2
+slug: iterm2
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+<Tabs items={['iTerm2']}>
+  <Tab value="iTerm2">
+
+iTerm2 est **hautement configurable** : la plupart des raccourcis sont modifiables dans **Settings → Keys** et **Profiles → Keys**. Les principaux raccourcis ci-dessous correspondent aux **valeurs par défaut**.  
+_(Navigation des panneaux, zoom, plein écran, historique de collage, autocomplétion et “Instant Replay” sont confirmés par la doc officielle.)_
+
+## Raccourcis essentiels
+
+| Raccourci                                                                | Action                                              |
+| ------------------------------------------------------------------------ | --------------------------------------------------- |
+| <kbd>⌘</kbd> + <kbd>T</kbd>                                              | Nouvel **onglet**                                   |
+| <kbd>⌘</kbd> + <kbd>W</kbd>                                              | **Fermer** l’onglet/panneau actif                   |
+| <kbd>⌘</kbd> + <kbd>D</kbd>                                              | Split **vertical** (panneaux côte à côte)           |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>D</kbd>                               | Split **horizontal** (panneaux haut/bas)            |
+| <kbd>⌘</kbd> + <kbd>[</kbd> / <kbd>⌘</kbd> + <kbd>]</kbd>                | Panneau **précédent** / **suivant** (ordre d’usage) |
+| <kbd>⌘</kbd> + <kbd>⌥</kbd> + <kbd>←/↑/↓/→</kbd>                         | Aller au panneau par **direction**                  |
+| <kbd>⌘</kbd> + <kbd>←</kbd> / <kbd>⌘</kbd> + <kbd>→</kbd>                | Onglet **précédent** / **suivant**                  |
+| <kbd>⌘</kbd> + <kbd>1…9</kbd>                                            | Aller à l’onglet **n°**                             |
+| <kbd>⌘</kbd> + <kbd>F</kbd>                                              | **Rechercher** dans la sortie                       |
+| <kbd>⌘</kbd> + <kbd>G</kbd> / <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>G</kbd> | Occurrence **suivante** / **précédente**            |
+| <kbd>⌘</kbd> + <kbd>K</kbd>                                              | **Nettoyer** l’écran + scrollback                   |
+| <kbd>⌘</kbd> + <kbd>↩</kbd>                                              | **Plein écran** de la fenêtre                       |
+| <kbd>⌘</kbd> + <kbd>;</kbd>                                              | **Autocomplétion** (mots vus dans l’onglet)         |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>H</kbd>                               | **Historique de collage**                           |
+
+🔴 **Remarques**
+
+- Splits, navigation par flèches, zoom de panneau et plein écran : valeurs par défaut documentées.
+- Autocomplétion <kbd>⌘</kbd>+<kbd>;</kbd> et **Paste History** <kbd>⇧</kbd>+<kbd>⌘</kbd>+<kbd>H</kbd> sont natives.
+- Onglets : <kbd>⌘</kbd>+<kbd>←/→</kbd>, <kbd>⌘</kbd>+<kbd>1…9</kbd> sont listés dans “General Usage”.
+- Clear buffer <kbd>⌘</kbd>+<kbd>K</kbd> est dans le menu **Edit**.
+
+## Raccourcis “affichage & panneaux”
+
+| Raccourci                                        | Action                                            |
+| ------------------------------------------------ | ------------------------------------------------- |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>↩</kbd>       | **Maximiser** / restaurer le panneau (zoom local) |
+| <kbd>⌃</kbd> + <kbd>⌘</kbd> + <kbd>←/↑/↓/→</kbd> | **Redimensionner** le panneau actif               |
+| <kbd>⌘</kbd> + <kbd>/</kbd>                      | **Trouver le curseur** (highlight)                |
+| <kbd>⌘</kbd> + <kbd>`</kbd>                      | **Parcourir** les fenêtres iTerm2                 |
+| <kbd>⌥</kbd> + <kbd>⌘</kbd> + <kbd>1…9</kbd>     | Aller à la **fenêtre** n°                         |
+
+🔴 **Remarques**
+
+- Maximise pane <kbd>⇧</kbd>+<kbd>⌘</kbd>+<kbd>↩</kbd> : doc officielle.
+- Find Cursor <kbd>⌘</kbd>+<kbd>/</kbd> : doc/release notes.
+- Redimensionner via <kbd>⌃</kbd>+<kbd>⌘</kbd>+flèches : souvent par défaut (peut être remappé).
+- Navigation fenêtre par numéro : <kbd>⌥</kbd>+<kbd>⌘</kbd>+<kbd>N</kbd>.
+
+## Raccourcis avancés / power-user
+
+| Raccourci                                  | Action                                                |
+| ------------------------------------------ | ----------------------------------------------------- |
+| <kbd>⌥</kbd> + <kbd>⌘</kbd> + <kbd>I</kbd> | **Broadcast input** → tous les panneaux de l’onglet   |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>I</kbd> | **Broadcast input** → tous les panneaux de la fenêtre |
+| <kbd>⌥</kbd> + <kbd>⌘</kbd> + <kbd>B</kbd> | **Instant Replay** (remonter dans le temps)           |
+| <kbd>⌥</kbd> + <kbd>⌘</kbd> + <kbd>E</kbd> | **Exposé des onglets** (aperçu global)                |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>O</kbd> | **Open Quickly** (rechercher/ouvrir sessions/actions) |
+
+🔴 **Remarques**
+
+- Broadcast input : menu **Shell → Broadcast Input** (raccourcis par défaut courants).
+- Instant Replay <kbd>⌥</kbd>+<kbd>⌘</kbd>+<kbd>B</kbd> : doc officielle.
+- Exposé des onglets : documenté dans le docset Dash.
+- Open Quickly : panneau dédié (souvent <kbd>⇧</kbd>+<kbd>⌘</kbd>+<kbd>O</kbd>).
+
+---
+
+## Tips iTerm2 sur macOS (qualité de vie)
+
+- **Hotkey Window (type “Visor”)** : un terminal dédié qui apparaît/dispraît via un **raccourci global** (ex. double-tap **⌥**).  
+  _Settings → Keys → Hotkey → Create a Dedicated Hotkey Window_ puis choisis la touche/double-tap.
+
+- **Natural Text Editing** (sauts par mots avec ⌥←/→, etc.) :  
+  _Profiles → Keys → Presets → Natural Text Editing_.
+
+- **Warn before multi-line paste** + **Paste Slowly** (coller prudemment) :  
+  _Edit → Paste Special → Warn Before Multi-Line Paste_ et _Paste Slowly_ (configurable).
+
+- **Shell Integration** (recommandé) : historique de commandes, dossiers récents, navigation entre prompts (<kbd>⇧</kbd>+<kbd>⌘</kbd>+<kbd>↑/↓</kbd>), meilleure capture de sortie.  
+  _iTerm2 → Install Shell Integration_.
+
+- **Triggers + Captured Output** : mets en surbrillance “error|warning”, ouvre la ligne, lance une action.  
+  _Profiles → Advanced → Triggers → Edit…_ (action **Highlight Text** ou **Capture Output**).
+
+- **Trouver vite le curseur** : <kbd>⌘</kbd>+<kbd>/</kbd>. Parfait sur grands écrans.
+
+- **Plein écran iTerm2** sans animation Mission Control : <kbd>⌘</kbd>+<kbd>↩</kbd>, et dans _Settings → General_ décoche _Native full screen windows_ si tu préfères l’ancien comportement.
+
+- **Coller depuis l’historique** : <kbd>⇧</kbd>+<kbd>⌘</kbd>+<kbd>H</kbd>, filtrable au clavier.
+
+---
+
+### Exemples rapides
+
+- **Cloner un split & naviguer vite** : <kbd>⌘</kbd>+<kbd>D</kbd> (split), puis <kbd>⌘</kbd>+<kbd>⌥</kbd>+flèches pour passer d’un panneau à l’autre.
+- **Zoomer un panneau** : <kbd>⇧</kbd>+<kbd>⌘</kbd>+<kbd>↩</kbd> pour se concentrer le temps d’une commande lourde.
+- **Autocomplete tout doux** : tape le début d’un mot vu dans l’onglet puis <kbd>⌘</kbd>+<kbd>;</kbd>.
+- **Revoir une sortie écrasée** (ex. `top`) : <kbd>⌥</kbd>+<kbd>⌘</kbd>+<kbd>B</kbd> → flèches gauche/droite → <kbd>Esc</kbd>.
+
+> 🔴 **Remarque**
+>
+> - Tous ces raccourcis sont **reliés au profil ou à l’app** et peuvent être remappés : _Settings → Keys_ et _Profiles → Keys_.
+> - Pour **copier dès la sélection**, iTerm2 le fait nativement (Préférences → General), et tu peux afficher l’onglet **Paste History** dans le Toolbelt.
+> - En plein écran, tu peux **afficher la barre d’onglets** (View → _Show Tabs in Fullscreen_, <kbd>⇧</kbd>+<kbd>⌘</kbd>+<kbd>T</kbd>).
+
+  </Tab>
+</Tabs>

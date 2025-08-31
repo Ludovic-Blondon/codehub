@@ -1,0 +1,108 @@
+---
+title: Ghostty
+slug: ghostty
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+<Tabs items={['Ghostty']}>
+  <Tab value="Ghostty">
+
+Ghostty est **hautement configurable** : tous les raccourcis sont modifiables via l’option **`keybind`** dans le fichier de configuration. Ci‑dessous, les **raccourcis par défaut** sur macOS (onglets, splits, plein écran, police, etc.).
+
+> 🔴 **Sources & notes** : voir la doc officielle **Keybindings** et **Action Reference** ainsi que la page **Configuration** (raccourci de rechargement).
+
+## Raccourcis essentiels
+
+| Raccourci                                                                | Action                                 |
+| ------------------------------------------------------------------------ | -------------------------------------- |
+| <kbd>⌘</kbd> + <kbd>T</kbd>                                              | Nouvel **onglet**                      |
+| <kbd>⌘</kbd> + <kbd>W</kbd>                                              | Fermer l’**onglet/surface**            |
+| <kbd>⌘</kbd> + <kbd>N</kbd>                                              | Nouvelle **fenêtre**                   |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>W</kbd>                               | **Fermer la fenêtre**                  |
+| <kbd>⌘</kbd> + <kbd>⇧</kbd> + <kbd>[</kbd>                               | Onglet **précédent**                   |
+| <kbd>⌘</kbd> + <kbd>⇧</kbd> + <kbd>]</kbd>                               | Onglet **suivant**                     |
+| <kbd>⌘</kbd> + <kbd>1…8</kbd>                                            | Aller à l’onglet **n°1–8**             |
+| <kbd>⌘</kbd> + <kbd>9</kbd>                                              | Aller au **dernier** onglet            |
+| <kbd>⌘</kbd> + <kbd>K</kbd>                                              | **Effacer** l’écran + scrollback       |
+| <kbd>⌘</kbd> + <kbd>↩</kbd> / <kbd>⌃</kbd> + <kbd>⌘</kbd> + <kbd>F</kbd> | **Plein écran**                        |
+| <kbd>⌘</kbd> + <kbd>,</kbd>                                              | Ouvrir le **fichier de configuration** |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>,</kbd>                               | **Recharger** la configuration         |
+
+🔴 **Remarques**
+
+- Par défaut sur macOS, Ghostty utilise **⌘⇧[ / ⌘⇧]** pour onglet précédent/suivant (comportement « macOS natif »). Selon ta config système, **Ctrl+Tab** peut aussi fonctionner, mais **ce n’est pas le binding par défaut** de Ghostty.
+- Rechargement de la conf : **⌘⇧,** est le raccourci par défaut documenté.
+
+## Splits (panneaux) & affichage
+
+| Raccourci                                                 | Action                              |
+| --------------------------------------------------------- | ----------------------------------- |
+| <kbd>⌘</kbd> + <kbd>D</kbd>                               | Nouveau split **à droite**          |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>D</kbd>                | Nouveau split **en bas**            |
+| <kbd>⌘</kbd> + <kbd>[</kbd> / <kbd>⌘</kbd> + <kbd>]</kbd> | Split **précédent** / **suivant**   |
+| <kbd>⌘</kbd> + <kbd>⌥</kbd> + <kbd>←/↑/↓/→</kbd>          | Aller au split par **direction**    |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>↩</kbd>                | **Zoomer/restaurer** le split actif |
+| <kbd>⌘</kbd> + <kbd>⌃</kbd> + <kbd>←/↑/↓/→</kbd>          | **Redimensionner** le split actif   |
+| <kbd>⌘</kbd> + <kbd>⌃</kbd> + <kbd>=</kbd>                | **Égaliser** tous les splits        |
+
+🔴 **Remarques**
+
+- <kbd>⌘</kbd>+<kbd>W</kbd> ferme le **split actif** s’il n’y a pas d’onglet distinct
+  (sinon : ferme l’onglet).
+
+## Navigation & scrollback
+
+| Raccourci                                                 | Action                                            |
+| --------------------------------------------------------- | ------------------------------------------------- |
+| <kbd>⌘</kbd> + <kbd>Home</kbd>                            | Aller en **haut** du buffer                       |
+| <kbd>⌘</kbd> + <kbd>End</kbd>                             | Aller en **bas** du buffer                        |
+| <kbd>⌘</kbd> + <kbd>Page Up/Down</kbd>                    | **Page** précédente / suivante                    |
+| <kbd>⌘</kbd> + <kbd>↑</kbd> / <kbd>⌘</kbd> + <kbd>↓</kbd> | **Jump to prompt** précédent/suivant              |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>J</kbd>                | **Écrire** le scrollback dans un fichier (paste)  |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>⌥</kbd> + <kbd>J</kbd> | Écrire **et ouvrir** le scrollback dans l’éditeur |
+
+🔴 **Remarques**
+
+- Ghostty **n’a pas encore** de recherche intégrée type <kbd>⌘</kbd>+<kbd>F</kbd>. Astuce : bind **Ctrl+F** pour ouvrir le scrollback dans un éditeur, puis chercher là‑dedans :
+
+  keybind = ctrl+f=write_scrollback_file:open
+
+## Police (zoom)
+
+| Raccourci                   | Action                  |
+| --------------------------- | ----------------------- |
+| <kbd>⌘</kbd> + <kbd>+</kbd> | **Augmenter** la taille |
+| <kbd>⌘</kbd> + <kbd>-</kbd> | **Diminuer** la taille  |
+| <kbd>⌘</kbd> + <kbd>0</kbd> | **Réinitialiser**       |
+
+## Outils & inspection
+
+| Raccourci                                  | Action               |
+| ------------------------------------------ | -------------------- |
+| <kbd>⌘</kbd> + <kbd>⌥</kbd> + <kbd>I</kbd> | **Inspector** on/off |
+
+---
+
+## Tips Ghostty (qualité de vie)
+
+- **Lister les raccourcis par défaut** :
+
+  ghostty +list-keybinds --default
+
+- **Réassigner** des raccourcis globaux du système si conflit (ex. **⌘⇧[/** **⌘⇧]**) via **Réglages macOS → Clavier → Raccourcis → Raccourcis d’app**.
+- **Quick Terminal** : fonctionnalité « tiroir » (pas de binding par défaut). Tu peux lier par ex. :
+
+  keybind = global:ctrl+grave_accent=toggle_quick_terminal
+
+---
+
+> 🔴 **Références**
+>
+> - Keybindings (aperçu) et **Action Reference** (liste complète).
+> - Configuration : **Reload config** par défaut <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>,</kbd>.
+> - Raccourcis par défaut compilés par la communauté (Windows/Linux/macOS).
+> - Manpage : `ghostty +list-keybinds --default` disponible.
+
+  </Tab>
+</Tabs>

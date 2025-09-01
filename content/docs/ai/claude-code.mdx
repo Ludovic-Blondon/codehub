@@ -1,137 +1,148 @@
 ---
 title: Claude Code
-description: Guide complet Claude Code avec commandes et techniques de base aux plus avancées
+description: Guide officiel Claude Code - Assistant IA de développement en ligne de commande
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-Claude Code est l'interface CLI officielle d'Anthropic pour Claude. Ce guide répertorie les commandes essentielles, techniques et meilleures pratiques pour maximiser votre productivité avec cet outil puissant.
+Claude Code est un assistant IA de développement qui vit dans votre terminal. Il vous aide à comprendre votre codebase, implémenter des fonctionnalités, débugger et automatiser vos workflows de développement.
 
 ---
 
-## 🚀 Commandes de base
+## 🚀 Installation et Configuration
 
-### Navigation et Orientation
+### Prérequis
+- Node.js 18 ou plus récent
+- Compte Claude.ai ou Anthropic Console
+
+### Installation
+
+```bash
+npm install -g @anthropic-ai/claude-code
+cd your-project
+claude
+```
+
+### Commandes Slash Intégrées
 
 | Commande | Description |
 |----------|-------------|
-| `/help` | Afficher l'aide générale de Claude Code |
-| `/status` | Voir l'état actuel du projet et de la session |
-| `/pwd` | Afficher le répertoire de travail actuel |
-| `/ls` ou `/list` | Lister les fichiers du répertoire courant |
-| `/cd [dossier]` | Changer de répertoire |
+| `/help` | Afficher l'aide de Claude Code |
 | `/clear` | Effacer l'historique de la conversation |
-
-### Gestion des Fichiers
-
-| Commande | Description |
-|----------|-------------|
-| `/read [fichier]` | Lire le contenu d'un fichier |
-| `/edit [fichier]` | Éditer un fichier existant |
-| `/create [fichier]` | Créer un nouveau fichier |
-| `/delete [fichier]` | Supprimer un fichier |
-| `/copy [source] [destination]` | Copier un fichier |
-| `/move [source] [destination]` | Déplacer ou renommer un fichier |
+| `/config` | Voir/modifier la configuration |
+| `/login` | Changer de compte Anthropic |
+| `/model` | Sélectionner le modèle IA |
+| `/agents` | Gérer les sous-agents IA |
+| `/add-dir` | Ajouter des répertoires de travail |
+| `/permissions` | Mettre à jour les permissions |
 
 ---
 
-## 🔍 Recherche et Analyse
+## 🔍 Workflows Principaux
 
-<Tabs items={['Recherche', 'Analyse Code', 'Git']}>
-<Tab value="Recherche">
+<Tabs items={['Compréhension Code', 'Développement', 'Git & Debug']}>
+<Tab value="Compréhension Code">
 
-### Recherche dans les Fichiers
-
-```bash
-# Recherche simple
-trouve "fonction_main" dans tout le projet
-
-# Recherche avec type de fichier
-cherche "import React" dans les fichiers .tsx
-
-# Recherche par expression régulière
-trouve /class\s+\w+/ dans src/
-
-# Recherche dans un dossier spécifique
-cherche "API_KEY" dans config/
-```
-
-### Recherche Globale
+### Analyser une Base de Code
 
 ```bash
-# Recherche de pattern complexe
-trouve tous les composants React qui utilisent useState
+# Comprendre la structure du projet
+Explique-moi l'architecture de ce projet
 
-# Recherche de fonctions non utilisées
-identifie les fonctions mortes dans le code
+# Analyser un fichier spécifique
+Que fait ce composant React ?
 
-# Recherche de dépendances
-liste toutes les imports de "lodash"
-
-# Recherche de TODO et FIXME
-trouve tous les commentaires TODO et FIXME
-```
-
-</Tab>
-<Tab value="Analyse Code">
-
-### Analyse Statique
-
-```bash
-# Analyse de complexité
-analyse la complexité du fichier src/utils.js
-
-# Détection de problèmes
-identifie les problèmes potentiels dans mon code
-
-# Analyse des dépendances
-montre le graphe des dépendances du projet
-
-# Métriques de code
-calcule les métriques pour src/components/
-```
-
-### Compréhension du Code
-
-```bash
-# Expliquer une fonction
-explique cette fonction ligne par ligne
-
-# Tracer l'exécution
-trace l'exécution de cette méthode
+# Tracer les dépendances
+Comment cette fonction est-elle utilisée dans le projet ?
 
 # Identifier les patterns
-quels design patterns sont utilisés ici ?
+Quels patterns architecturaux utilise ce code ?
+```
 
-# Analyser les performances
-identifie les goulots d'étranglement potentiels
+### Navigation et Recherche
+
+```bash
+# Recherche sémantique
+Trouve tous les composants qui gèrent l'authentification
+
+# Analyse de code mort
+Identifie les fonctions non utilisées dans src/
+
+# Compréhension des flows
+Montre-moi le flow de données de cette feature
+
+# Documentation manquante
+Quelles fonctions nécessitent de la documentation ?
 ```
 
 </Tab>
-<Tab value="Git">
+<Tab value="Développement">
 
-### Commandes Git Intégrées
+### Implémentation de Features
 
 ```bash
-# Status et diff
-/git status
-/git diff
-/git log --oneline -10
+# Nouvelle fonctionnalité
+Implémente un système de notifications en temps réel
 
-# Commandes de base
-/git add .
-/git commit -m "message"
-/git push
-/git pull
+# Refactoring
+Refactorise ce composant pour utiliser des hooks modernes
 
-# Branches
-/git branch
-/git checkout -b nouvelle-branche
-/git merge main
+# Génération de tests
+Crée des tests unitaires pour cette fonction
 
-# Historique avancé
-/git blame fichier.js
-/git show commit-hash
+# Optimisation
+Optimise ce code pour les performances
+```
+
+### Génération de Code
+
+```bash
+# Composants React
+Crée un composant Modal réutilisable avec ces props
+
+# API endpoints
+Génère un endpoint REST pour gérer les utilisateurs
+
+# Types TypeScript
+Crée les types TypeScript pour cette API response
+
+# Documentation
+Génère la JSDoc pour cette classe
+```
+
+</Tab>
+<Tab value="Git & Debug">
+
+### Workflows Git
+
+```bash
+# Commits intelligents
+Crée un commit avec un message descriptif pour ces changements
+
+# Analyse de diff
+Explique-moi les changements dans ce diff
+
+# Resolution de conflits
+Aide-moi à résoudre ces conflits de merge
+
+# Pull requests
+Crée une PR avec une description détaillée
+```
+
+### Débogage
+
+```bash
+# Analyse d'erreurs
+Aide-moi à comprendre cette stack trace
+
+# Debug assisté
+Pourquoi cette fonction retourne undefined ?
+
+# Tests de régression
+Crée un test qui reproduit ce bug
+
+# Monitoring
+Ajoute des logs utiles à ce code
 ```
 
 </Tab>
@@ -139,43 +150,109 @@ identifie les goulots d'étranglement potentiels
 
 ---
 
-## 🛠️ Développement et Refactoring
+## ⚙️ Configuration et Contexte
 
-### Refactoring Intelligent
+### Structure .claude/
 
-```bash
-# Renommage global
-renomme la variable "oldName" en "newName" dans tout le projet
+Claude Code utilise un répertoire `.claude/` pour la configuration projet :
 
-# Extraction de fonction
-extrais cette logique dans une fonction séparée
-
-# Extraction de composant
-extrais ce JSX dans un composant réutilisable
-
-# Déplacement de code
-déplace cette fonction vers utils/helpers.js
+```
+.claude/
+├── settings.json          # Paramètres partagés (équipe)
+├── settings.local.json    # Paramètres personnels
+├── commands/             # Commandes slash personnalisées
+│   └── [namespace]/        # Organisées par namespace
+├── agents/               # Sous-agents du projet
+└── CLAUDE.md            # Instructions de contexte
 ```
 
-### Génération de Code
+### Instructions de Contexte (CLAUDE.md)
 
-```bash
-# Tests automatiques
-génère des tests pour cette fonction
+Le fichier `CLAUDE.md` permet de donner du contexte spécifique à votre projet :
 
-# Documentation
-génère la JSDoc pour cette classe
+```markdown
+# Instructions de Contexte du Projet
 
-# Types TypeScript
-génère les types TypeScript pour cette API
+## Standards de Code
+- Utiliser TypeScript strict
+- Préférer les hooks aux class components
+- Suivre les conventions de nommage kebab-case
 
-# Composants React
-crée un composant React avec ces props
+## Architecture
+- Respecter l'architecture clean
+- Séparer la logique métier des composants UI
+
+## Tests
+- Couverture minimale de 80%
+- Tests unitaires avec Jest
+- Tests e2e avec Playwright
+```
+
+### Commandes Personnalisées
+
+Créez vos propres commandes slash dans `.claude/commands/` :
+
+```markdown
+# .claude/commands/test.md
+
+Explique comment lancer les tests de ce projet :
+
+1. Tests unitaires : `npm run test`
+2. Tests e2e : `npm run test:e2e`
+3. Coverage : `npm run test:coverage`
 ```
 
 ---
 
-## 🎯 Techniques Avancées
+## 📚 Sous-Agents et Spécialisation
+
+### Gestion des Sous-Agents
+
+Claude Code permet de créer des agents spécialisés :
+
+```bash
+# Voir les agents disponibles
+/agents
+
+# Créer un agent spécialisé
+Crée un agent expert en optimisation React
+
+# Utiliser un agent existant
+@test-agent génère des tests pour ce composant
+```
+
+### Intégration MCP
+
+Model Context Protocol pour intégrer des outils externes :
+
+```json
+// .mcp.json
+{
+  "servers": {
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+    },
+    "sentry": {
+      "command": "npx",
+      "args": ["-y", "@sentry/mcp-server"]
+    }
+  }
+}
+```
+
+### Bonnes Pratiques
+
+| Technique | Description |
+|-----------|-------------|
+| **Contexte riche** | Donnez le contexte métier de votre demande |
+| **Itération rapide** | Testez et itérez plutôt que viser la perfection |
+| **Spécialisation** | Utilisez des sous-agents pour des tâches complexes |
+| **Collaboration** | Traitez Claude comme un pair programming partner |
+
+---
+
+## 🚀 Techniques Avancées
 
 ### Automatisation
 
@@ -250,94 +327,15 @@ implémente étape par étape selon le plan
 # 4. Test et validation
 teste le code et corrige les erreurs
 
-# 5. Documentation
-documente les changements effectués
-```
+5. **Documentation** : Mise à jour de la doc
+
+### Tips d'Efficacité
+
+- 📝 **Contexte CLAUDE.md** : Définissez les standards de votre projet
+- 🤖 **Sous-agents** : Spécialisez pour des tâches récurrentes
+- 🔄 **Itération** : Progressez par petites étapes et validez
+- 👥 **Collaboration** : Utilisez Claude comme un coéquipier
 
 ---
 
-## 🚀 Commandes Expertes
-
-### Manipulation de Projet
-
-```bash
-# Architecture analysis
-analyse l'architecture globale du projet
-identifie les anti-patterns architectural
-
-# Dependency management
-vérifie les vulnérabilités des dépendances
-propose des alternatives aux packages obsolètes
-
-# Performance profiling
-profile l'application complète
-suggère des optimisations de performance
-```
-
-### Intégrations Avancées
-
-```bash
-# Docker
-génère un Dockerfile optimisé pour ce projet
-configure docker-compose avec base de données
-
-# Kubernetes
-crée les manifests k8s pour ce service
-
-# Monitoring
-intègre des métriques de monitoring
-configure des alertes automatiques
-```
-
----
-
-## 🧠 Tips d'Expert
-
-### Maximiser l'Efficacité
-
-- **Contexte riche** : Donnez toujours le contexte métier de votre demande
-- **Itération rapide** : Testez rapidement et itérez plutôt que de viser la perfection
-- **Spécialisation** : Utilisez Claude Code pour des tâches spécialisées complexes
-- **Collaboration** : Traitez Claude comme un pair programming partner
-
-### Prompts Puissants
-
-```bash
-# Analyse complète
-"Analyse ce composant React et suggère des améliorations de performance, 
-sécurité et maintenabilité avec des exemples de code"
-
-# Débogage contextuel  
-"Cette fonction devrait retourner X mais retourne Y. 
-Voici les inputs de test: [...]. Aide-moi à identifier le problème"
-
-# Refactoring guidé
-"Refactorise ce code legacy en suivant les best practices modernes, 
-explique chaque changement et pourquoi il améliore le code"
-```
-
----
-
-## ⚡ Raccourcis et Astuces
-
-### Navigation Rapide
-
-| Raccourci | Action |
-|-----------|--------|
-| <kbd>Ctrl</kbd> + <kbd>C</kbd> | Interrompre la commande courante |
-| <kbd>↑</kbd> / <kbd>↓</kbd> | Naviguer dans l'historique |
-| <kbd>Tab</kbd> | Autocomplétion |
-| <kbd>Ctrl</kbd> + <kbd>L</kbd> | Effacer l'écran |
-
-### Variables d'Environnement
-
-```bash
-# Configuration personnalisée
-export CLAUDE_STYLE="detailed"
-export CLAUDE_LANG="fr"
-export CLAUDE_PROJECT_TYPE="react"
-```
-
----
-
-👉 Ce guide vous accompagne de vos premiers pas aux techniques les plus avancées avec Claude Code. Commencez par les bases et progressez graduellement vers les fonctionnalités expertes.
+🚀 **Claude Code vous accompagne du développement quotidien aux architectures complexes. Commencez par les workflows de base et explorez progressivement les fonctionnalités avancées.**

@@ -1,148 +1,262 @@
 ---
 title: Claude Code
-description: Guide officiel Claude Code - Assistant IA de développement en ligne de commande
+description: Guide de référence - Commandes et workflows de développement
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Callout } from "fumadocs-ui/components/callout";
 
-Claude Code est un assistant IA de développement qui vit dans votre terminal. Il vous aide à comprendre votre codebase, implémenter des fonctionnalités, débugger et automatiser vos workflows de développement.
+Assistant IA de développement en ligne de commande pour comprendre, développer, débugger et optimiser votre code.
 
 ---
 
-## 🚀 Installation et Configuration
+## ⚡ Commandes Essentielles
 
-### Prérequis
-- Node.js 18 ou plus récent
-- Compte Claude.ai ou Anthropic Console
+| Commande   | Description               | Exemple                         |
+| ---------- | ------------------------- | ------------------------------- |
+| `/help`    | Afficher l'aide           | `/help commands`                |
+| `/clear`   | Effacer l'historique      | `/clear`                        |
+| `/config`  | Modifier la configuration | `/config model claude-opus-4-1` |
+| `/model`   | Changer de modèle IA      | `/model claude-opus-4-1`        |
+| `/agents`  | Gérer les sous-agents     | `/agents list`                  |
+| `/add-dir` | Ajouter des répertoires   | `/add-dir src/components`       |
+| `/context` | Gérer le contexte actif   | `/context add package.json`     |
+| `/run`     | Exécuter des scripts npm  | `/run test`                     |
 
-### Installation
+---
+
+## 📖 Workflows par Cas d'Usage
+
+<Tabs items={['Compréhension', 'Développement', 'Debug', 'Optimisation']}>
+<Tab value="Compréhension">
+
+### Explorer un Projet
 
 ```bash
-npm install -g @anthropic-ai/claude-code
-cd your-project
-claude
+# Vue d'ensemble
+Explique l'architecture de ce projet en 5 points
+
+# Structure et dépendances
+Montre-moi les relations entre les modules principaux
+
+# Technologies utilisées
+Liste toutes les technologies avec leurs rôles
+
+# Points d'entrée
+Quels fichiers dois-je lire en premier pour comprendre ce projet ?
 ```
 
-### Commandes Slash Intégrées
-
-| Commande | Description |
-|----------|-------------|
-| `/help` | Afficher l'aide de Claude Code |
-| `/clear` | Effacer l'historique de la conversation |
-| `/config` | Voir/modifier la configuration |
-| `/login` | Changer de compte Anthropic |
-| `/model` | Sélectionner le modèle IA |
-| `/agents` | Gérer les sous-agents IA |
-| `/add-dir` | Ajouter des répertoires de travail |
-| `/permissions` | Mettre à jour les permissions |
-
----
-
-## 🔍 Workflows Principaux
-
-<Tabs items={['Compréhension Code', 'Développement', 'Git & Debug']}>
-<Tab value="Compréhension Code">
-
-### Analyser une Base de Code
+### Analyser le Code
 
 ```bash
-# Comprendre la structure du projet
-Explique-moi l'architecture de ce projet
-
-# Analyser un fichier spécifique
-Que fait ce composant React ?
-
 # Tracer les dépendances
-Comment cette fonction est-elle utilisée dans le projet ?
+Trace toutes les utilisations de cette fonction
 
-# Identifier les patterns
-Quels patterns architecturaux utilise ce code ?
+# Patterns architecturaux
+Quels design patterns sont utilisés dans ce code ?
+
+# Complexité
+Analyse la complexité cyclomatique de ce module
+
+# Code mort
+Identifie les imports et fonctions non utilisés
+
+# Dépendances circulaires
+Détecte les dépendances circulaires dans src/
 ```
 
-### Navigation et Recherche
+### Navigation Intelligente
 
 ```bash
 # Recherche sémantique
-Trouve tous les composants qui gèrent l'authentification
+Trouve tous les endroits qui gèrent l'authentification
 
-# Analyse de code mort
-Identifie les fonctions non utilisées dans src/
-
-# Compréhension des flows
-Montre-moi le flow de données de cette feature
+# Flow de données
+Montre le parcours des données depuis l'API jusqu'à l'UI
 
 # Documentation manquante
-Quelles fonctions nécessitent de la documentation ?
+Liste les fonctions publiques sans JSDoc
+
+# Impact d'un changement
+Qu'est-ce qui sera impacté si je modifie cette fonction ?
 ```
 
 </Tab>
 <Tab value="Développement">
 
-### Implémentation de Features
-
-```bash
-# Nouvelle fonctionnalité
-Implémente un système de notifications en temps réel
-
-# Refactoring
-Refactorise ce composant pour utiliser des hooks modernes
-
-# Génération de tests
-Crée des tests unitaires pour cette fonction
-
-# Optimisation
-Optimise ce code pour les performances
-```
-
 ### Génération de Code
 
 ```bash
-# Composants React
-Crée un composant Modal réutilisable avec ces props
+# Composant React complet
+Crée un composant Modal accessible avec tests et stories
 
-# API endpoints
-Génère un endpoint REST pour gérer les utilisateurs
+# API REST
+Génère un CRUD avec validation, pagination et gestion d'erreurs
 
 # Types TypeScript
-Crée les types TypeScript pour cette API response
+Génère les types pour cette API response avec génériques
 
-# Documentation
-Génère la JSDoc pour cette classe
+# Tests
+Écris des tests unitaires avec 90% de couverture pour ce module
+```
+
+### Refactoring Intelligent
+
+```bash
+# Modernisation
+Refactorise ce code avec les hooks React modernes
+
+# Architecture
+Restructure ce code selon l'architecture hexagonale
+
+# Performance
+Optimise ce composant pour réduire les re-renders
+
+# Patterns
+Applique le pattern Observer à ce système d'événements
+```
+
+### Scaffolding et Templates
+
+```bash
+# Créer un template
+Crée un template de composant avec notre structure standard
+
+# Générer depuis template
+Génère 5 nouveaux composants basés sur ce template
+
+# Migration
+Migre tous les class components vers des functional components
+
+# Conversion TypeScript
+Convertis ce fichier JS en TypeScript avec types stricts
+```
+
+### Features Complexes
+
+```bash
+# Avec planification
+Propose un plan puis implémente un système de notifications temps réel
+
+# Event sourcing
+Implémente l'event sourcing pour cette feature
+
+# WebSocket
+Ajoute du temps réel avec WebSocket et reconnection automatique
+
+# State management
+Intègre Redux/Zustand avec les bonnes pratiques
 ```
 
 </Tab>
-<Tab value="Git & Debug">
+<Tab value="Debug">
 
-### Workflows Git
+### Analyse d'Erreurs
 
 ```bash
-# Commits intelligents
-Crée un commit avec un message descriptif pour ces changements
+# Stack trace
+Analyse cette erreur et propose 3 solutions
 
-# Analyse de diff
-Explique-moi les changements dans ce diff
+# Debug guidé
+Guide-moi pas à pas pour résoudre ce problème
 
-# Resolution de conflits
-Aide-moi à résoudre ces conflits de merge
+# Root cause
+Trouve la cause racine de ce bug
 
-# Pull requests
-Crée une PR avec une description détaillée
+# Reproduction
+Crée un test qui reproduit ce bug
 ```
 
-### Débogage
+### Git et Versioning
 
 ```bash
-# Analyse d'erreurs
-Aide-moi à comprendre cette stack trace
+# Commit intelligent
+Analyse mes changements et crée un commit conventional
 
-# Debug assisté
-Pourquoi cette fonction retourne undefined ?
+# Résolution de conflits
+Aide-moi à résoudre ces conflits en gardant le bon code
 
-# Tests de régression
-Crée un test qui reproduit ce bug
+# Historique
+Explique l'évolution de ce fichier via son historique
+
+# Bisect
+Guide-moi avec git bisect pour trouver le commit problématique
+
+# PR complète
+Génère une PR avec description, breaking changes et checklist
+```
+
+### Debugging Avancé
+
+```bash
+# Memory leaks
+Détecte les fuites mémoire dans ce code React
+
+# Race conditions
+Identifie les race conditions dans ce code async
+
+# Performance profiling
+Profile ce code et trouve les bottlenecks
+
+# Logs stratégiques
+Ajoute des logs aux endroits critiques avec les bons niveaux
+
+# Error boundaries
+Implémente la gestion d'erreur pour cette feature
+```
+
+</Tab>
+<Tab value="Optimisation">
+
+### Performance
+
+```bash
+# Bundle analysis
+Analyse le bundle et propose du code splitting
+
+# Lazy loading
+Implémente le lazy loading pour ces composants
+
+# Memoization
+Où ajouter useMemo et useCallback dans ce composant ?
+
+# Virtual scrolling
+Optimise cette liste de 10000 items avec virtual scrolling
+
+# Web Workers
+Déplace ce calcul lourd dans un Web Worker
+```
+
+### Métriques
+
+```bash
+# Core Web Vitals
+Mesure et optimise les Core Web Vitals
+
+# Performance budget
+Établis un budget de performance pour ce projet
 
 # Monitoring
-Ajoute des logs utiles à ce code
+Configure le Real User Monitoring avec Sentry
+
+# Benchmarks
+Crée des benchmarks pour mesurer les améliorations
+```
+
+### SEO et Accessibilité
+
+```bash
+# Audit SEO
+Effectue un audit SEO complet de cette page
+
+# ARIA
+Ajoute les attributs ARIA manquants
+
+# Navigation clavier
+Assure la navigation clavier complète
+
+# Screen readers
+Teste et optimise pour les lecteurs d'écran
 ```
 
 </Tab>
@@ -150,192 +264,313 @@ Ajoute des logs utiles à ce code
 
 ---
 
-## ⚙️ Configuration et Contexte
+## 🎯 Configuration Projet
 
 ### Structure .claude/
 
-Claude Code utilise un répertoire `.claude/` pour la configuration projet :
-
 ```
 .claude/
-├── settings.json          # Paramètres partagés (équipe)
-├── settings.local.json    # Paramètres personnels
-├── commands/             # Commandes slash personnalisées
-│   └── [namespace]/        # Organisées par namespace
-├── agents/               # Sous-agents du projet
-└── CLAUDE.md            # Instructions de contexte
+├── settings.json          # Config partagée équipe
+├── settings.local.json    # Config personnelle
+├── commands/             # Commandes custom
+├── agents/               # Sous-agents spécialisés
+├── templates/            # Templates réutilisables
+└── CLAUDE.md            # Contexte du projet
 ```
 
-### Instructions de Contexte (CLAUDE.md)
-
-Le fichier `CLAUDE.md` permet de donner du contexte spécifique à votre projet :
+### CLAUDE.md - Contexte Projet
 
 ```markdown
-# Instructions de Contexte du Projet
+# Contexte Projet
 
-## Standards de Code
-- Utiliser TypeScript strict
-- Préférer les hooks aux class components
-- Suivre les conventions de nommage kebab-case
+## Stack Technique
 
-## Architecture
-- Respecter l'architecture clean
-- Séparer la logique métier des composants UI
+- Next.js 14, TypeScript, Tailwind
+- Architecture: Clean Architecture + DDD
+- Tests: Jest, Playwright, 80% coverage min
 
-## Tests
-- Couverture minimale de 80%
-- Tests unitaires avec Jest
-- Tests e2e avec Playwright
+## Conventions
+
+- Components: PascalCase
+- Files: kebab-case
+- Pas de `any`, utiliser `unknown`
+- Hooks dans `/hooks`, logique dans `/domain`
+
+## Standards Qualité
+
+- SOLID principles
+- Tests first (TDD)
+- Performance: TTI < 3s
+- Accessibilité: WCAG 2.1 AA
+
+## Git Workflow
+
+- Conventional commits
+- Feature branches
+- Squash merge only
 ```
 
 ### Commandes Personnalisées
 
-Créez vos propres commandes slash dans `.claude/commands/` :
-
 ```markdown
-# .claude/commands/test.md
+# .claude/commands/review.md
 
-Explique comment lancer les tests de ce projet :
+---
 
-1. Tests unitaires : `npm run test`
-2. Tests e2e : `npm run test:e2e`
-3. Coverage : `npm run test:coverage`
+name: review
+aliases: [rv, check]
+
+---
+
+Review complète du code :
+
+1. Qualité et maintenabilité
+2. Performance et optimisations
+3. Sécurité (XSS, injections)
+4. Couverture de tests
+5. Documentation
+
+Génère un rapport avec score.
 ```
 
 ---
 
-## 📚 Sous-Agents et Spécialisation
+## 🤖 Agents Spécialisés
 
-### Gestion des Sous-Agents
+### Créer un Agent Expert
 
-Claude Code permet de créer des agents spécialisés :
+```markdown
+# .claude/agents/test-expert.md
+
+---
+
+name: test-expert
+model: claude-opus-4-1
+temperature: 0.3
+
+---
+
+Expert en TDD et testing.
+
+Principes:
+
+- Test first, code second
+- Un test = un comportement
+- AAA pattern (Arrange-Act-Assert)
+- Isolation complète
+- Données de test avec Faker
+```
+
+### Utilisation des Agents
 
 ```bash
-# Voir les agents disponibles
-/agents
+# Charger un agent
+/agents load test-expert
 
-# Créer un agent spécialisé
-Crée un agent expert en optimisation React
+# Utiliser inline
+@test-expert écris les tests pour ce composant
 
-# Utiliser un agent existant
-@test-agent génère des tests pour ce composant
+# Créer un nouvel agent
+/agents create security-expert
+
+# Exporter pour l'équipe
+/agents export test-expert
 ```
-
-### Intégration MCP
-
-Model Context Protocol pour intégrer des outils externes :
-
-```json
-// .mcp.json
-{
-  "servers": {
-    "puppeteer": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
-    },
-    "sentry": {
-      "command": "npx",
-      "args": ["-y", "@sentry/mcp-server"]
-    }
-  }
-}
-```
-
-### Bonnes Pratiques
-
-| Technique | Description |
-|-----------|-------------|
-| **Contexte riche** | Donnez le contexte métier de votre demande |
-| **Itération rapide** | Testez et itérez plutôt que viser la perfection |
-| **Spécialisation** | Utilisez des sous-agents pour des tâches complexes |
-| **Collaboration** | Traitez Claude comme un pair programming partner |
 
 ---
 
 ## 🚀 Techniques Avancées
 
-### Automatisation
+### Automatisation CI/CD
 
 ```bash
-# Scripts personnalisés
-/run build
-/run test
-/run deploy
+# Pipeline complet
+Configure GitHub Actions avec tests, build et deploy
 
-# Tâches automatisées
-configure un watcher pour les changements CSS
-met en place un linter automatique
+# Pre-commit hooks
+Configure husky avec lint-staged
 
-# Intégrations CI/CD
-configure GitHub Actions pour ce projet
+# Changelog auto
+Configure semantic-release
+
+# Mise à jour des dépendances
+Configure Renovate pour les updates auto
 ```
 
-### Optimisation
+### Migrations et Refactoring
 
 ```bash
-# Analyse des performances
-profile cette fonction pour les performances
-optimise ce code pour la mémoire
+# Migration framework
+Migre de Next.js 13 vers 14 avec app directory
 
-# Bundle analysis
-analyse la taille du bundle JavaScript
-identifie les imports inutilisés
+# Architecture
+Transforme ce monolithe en microservices
 
-# Suggestions d'amélioration
-suggère des améliorations pour ce code
+# Modernisation
+Modernise ce code legacy avec les dernières pratiques
+
+# Performance
+Passe ce temps d'exécution de 10s à < 1s
 ```
 
-### Débogage Avancé
+### Sécurité
 
 ```bash
-# Debugging assisté
-aide-moi à débugger cette erreur
-trace cette exception jusqu'à sa source
+# Audit complet
+Effectue un audit de sécurité OWASP Top 10
 
-# Logs intelligents
-ajoute des logs stratégiques à ce code
+# Secrets exposés
+Détecte tous les secrets dans le code
 
-# Tests de régression
-crée un test qui reproduit ce bug
+# Vulnérabilités
+Vérifie les CVE dans les dépendances
+
+# RGPD
+Vérifie la conformité RGPD
 ```
 
 ---
 
-## 📚 Patterns et Conventions
+## 💡 Patterns d'Utilisation
 
-### Bonnes Pratiques
-
-| Technique | Description |
-|-----------|-------------|
-| **Prompts spécifiques** | Soyez précis dans vos demandes pour de meilleurs résultats |
-| **Contexte graduel** | Commencez large puis affinez progressivement |
-| **Vérification croisée** | Demandez à Claude de vérifier son propre code |
-| **Documentation en continu** | Documentez au fur et à mesure |
-
-### Workflow Recommandé
+### Workflow Efficace
 
 ```bash
-# 1. Compréhension
-lis et explique la structure de ce projet
+# 1. Comprendre
+Explique ce que fait ce code
 
-# 2. Planification  
-propose un plan pour implémenter cette feature
+# 2. Planifier
+Propose un plan pour cette feature
 
-# 3. Implémentation
-implémente étape par étape selon le plan
+# 3. Implémenter
+Implémente étape par étape
 
-# 4. Test et validation
-teste le code et corrige les erreurs
+# 4. Valider
+Ajoute tests et vérifie la qualité
 
-5. **Documentation** : Mise à jour de la doc
+# 5. Documenter
+Mets à jour la documentation
+```
 
-### Tips d'Efficacité
+### Prompting Optimal
 
-- 📝 **Contexte CLAUDE.md** : Définissez les standards de votre projet
-- 🤖 **Sous-agents** : Spécialisez pour des tâches récurrentes
-- 🔄 **Itération** : Progressez par petites étapes et validez
-- 👥 **Collaboration** : Utilisez Claude comme un coéquipier
+| Type               | Exemple                                              | Résultat            |
+| ------------------ | ---------------------------------------------------- | ------------------- |
+| **Contexte riche** | "Chat temps réel pour app B2B, 10k users simultanés" | Solution adaptée    |
+| **Étapes claires** | "Analyse, puis plan, puis code"                      | Approche structurée |
+| **Contraintes**    | "Sans libs externes, < 50 lignes"                    | Respect des limites |
+| **Validation**     | "Avec tests et docs"                                 | Solution complète   |
+
+### Anti-Patterns
+
+<Callout type="warning">
+  **À éviter:** - ❌ "Améliore ce code" → ✅ "Optimise les perfs de rendu" - ❌
+  "Fix le bug" → ✅ "Cette fonction retourne undefined, pourquoi?" - ❌
+  "Refactorise tout" → ✅ "Refactorise ce composant étape par étape"
+</Callout>
 
 ---
 
-🚀 **Claude Code vous accompagne du développement quotidien aux architectures complexes. Commencez par les workflows de base et explorez progressivement les fonctionnalités avancées.**
+## 🔧 Troubleshooting
+
+| Problème             | Solution                                 |
+| -------------------- | ---------------------------------------- |
+| **Contexte perdu**   | `/context add [fichiers]` pour recharger |
+| **Réponses longues** | Demander "résume" ou "étape par étape"   |
+| **Code incorrect**   | Préciser versions et contexte            |
+| **Mémoire saturée**  | `/clear` puis recharger l'essentiel      |
+
+### Debug Claude Code
+
+```bash
+# Mode verbose
+CLAUDE_DEBUG=true claude
+
+# Vérifier config
+claude config --check
+
+# Reset complet
+claude reset
+```
+
+---
+
+## 📊 Cas Pratiques
+
+### Onboarding Projet
+
+```bash
+# Pour nouveau développeur
+Crée un guide d'onboarding avec:
+- Architecture et conventions
+- Commandes essentielles
+- Premier ticket recommandé
+- Qui contacter pour quoi
+```
+
+### Préparation Release
+
+```bash
+# Checklist automatique
+Vérifie:
+- Tests verts
+- Build production OK
+- Changelog à jour
+- Version bumped
+- Métriques performance OK
+```
+
+### Review Quotidienne
+
+```bash
+# Matin
+Résume les changements d'hier et priorités du jour
+
+# Avant commit
+Review mes changements pour qualité et bugs
+
+# Fin de journée
+Génère un résumé des accomplissements
+```
+
+---
+
+## 🌟 Tips Productivité
+
+### Alias Bash
+
+```bash
+alias cc="claude"
+alias cct="claude @test-expert"
+alias ccr="claude /run"
+alias ccc="claude /clear && claude"
+```
+
+### Snippets Fréquents
+
+```bash
+# Shortcuts utiles
+"explique et améliore"
+"debug avec contexte"
+"optimise les perfs"
+"ajoute tests et docs"
+"vérifie les best practices"
+```
+
+### Intégration IDE
+
+```bash
+# VS Code
+Configure l'extension Claude Code
+
+# Terminal split
+Claude à gauche, code à droite
+
+# Watch mode
+claude --watch pour suivi temps réel
+```
+
+<Callout type="success">
+  **💡 Rappel**: Claude Code est votre pair programmer. Soyez précis dans vos
+  demandes, itérez rapidement, et validez toujours le code généré.
+</Callout>

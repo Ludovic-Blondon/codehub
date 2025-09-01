@@ -1,0 +1,343 @@
+---
+title: Claude Code
+description: Guide complet Claude Code avec commandes et techniques de base aux plus avancées
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+Claude Code est l'interface CLI officielle d'Anthropic pour Claude. Ce guide répertorie les commandes essentielles, techniques et meilleures pratiques pour maximiser votre productivité avec cet outil puissant.
+
+---
+
+## 🚀 Commandes de base
+
+### Navigation et Orientation
+
+| Commande | Description |
+|----------|-------------|
+| `/help` | Afficher l'aide générale de Claude Code |
+| `/status` | Voir l'état actuel du projet et de la session |
+| `/pwd` | Afficher le répertoire de travail actuel |
+| `/ls` ou `/list` | Lister les fichiers du répertoire courant |
+| `/cd [dossier]` | Changer de répertoire |
+| `/clear` | Effacer l'historique de la conversation |
+
+### Gestion des Fichiers
+
+| Commande | Description |
+|----------|-------------|
+| `/read [fichier]` | Lire le contenu d'un fichier |
+| `/edit [fichier]` | Éditer un fichier existant |
+| `/create [fichier]` | Créer un nouveau fichier |
+| `/delete [fichier]` | Supprimer un fichier |
+| `/copy [source] [destination]` | Copier un fichier |
+| `/move [source] [destination]` | Déplacer ou renommer un fichier |
+
+---
+
+## 🔍 Recherche et Analyse
+
+<Tabs items={['Recherche', 'Analyse Code', 'Git']}>
+<Tab value="Recherche">
+
+### Recherche dans les Fichiers
+
+```bash
+# Recherche simple
+trouve "fonction_main" dans tout le projet
+
+# Recherche avec type de fichier
+cherche "import React" dans les fichiers .tsx
+
+# Recherche par expression régulière
+trouve /class\s+\w+/ dans src/
+
+# Recherche dans un dossier spécifique
+cherche "API_KEY" dans config/
+```
+
+### Recherche Globale
+
+```bash
+# Recherche de pattern complexe
+trouve tous les composants React qui utilisent useState
+
+# Recherche de fonctions non utilisées
+identifie les fonctions mortes dans le code
+
+# Recherche de dépendances
+liste toutes les imports de "lodash"
+
+# Recherche de TODO et FIXME
+trouve tous les commentaires TODO et FIXME
+```
+
+</Tab>
+<Tab value="Analyse Code">
+
+### Analyse Statique
+
+```bash
+# Analyse de complexité
+analyse la complexité du fichier src/utils.js
+
+# Détection de problèmes
+identifie les problèmes potentiels dans mon code
+
+# Analyse des dépendances
+montre le graphe des dépendances du projet
+
+# Métriques de code
+calcule les métriques pour src/components/
+```
+
+### Compréhension du Code
+
+```bash
+# Expliquer une fonction
+explique cette fonction ligne par ligne
+
+# Tracer l'exécution
+trace l'exécution de cette méthode
+
+# Identifier les patterns
+quels design patterns sont utilisés ici ?
+
+# Analyser les performances
+identifie les goulots d'étranglement potentiels
+```
+
+</Tab>
+<Tab value="Git">
+
+### Commandes Git Intégrées
+
+```bash
+# Status et diff
+/git status
+/git diff
+/git log --oneline -10
+
+# Commandes de base
+/git add .
+/git commit -m "message"
+/git push
+/git pull
+
+# Branches
+/git branch
+/git checkout -b nouvelle-branche
+/git merge main
+
+# Historique avancé
+/git blame fichier.js
+/git show commit-hash
+```
+
+</Tab>
+</Tabs>
+
+---
+
+## 🛠️ Développement et Refactoring
+
+### Refactoring Intelligent
+
+```bash
+# Renommage global
+renomme la variable "oldName" en "newName" dans tout le projet
+
+# Extraction de fonction
+extrais cette logique dans une fonction séparée
+
+# Extraction de composant
+extrais ce JSX dans un composant réutilisable
+
+# Déplacement de code
+déplace cette fonction vers utils/helpers.js
+```
+
+### Génération de Code
+
+```bash
+# Tests automatiques
+génère des tests pour cette fonction
+
+# Documentation
+génère la JSDoc pour cette classe
+
+# Types TypeScript
+génère les types TypeScript pour cette API
+
+# Composants React
+crée un composant React avec ces props
+```
+
+---
+
+## 🎯 Techniques Avancées
+
+### Automatisation
+
+```bash
+# Scripts personnalisés
+/run build
+/run test
+/run deploy
+
+# Tâches automatisées
+configure un watcher pour les changements CSS
+met en place un linter automatique
+
+# Intégrations CI/CD
+configure GitHub Actions pour ce projet
+```
+
+### Optimisation
+
+```bash
+# Analyse des performances
+profile cette fonction pour les performances
+optimise ce code pour la mémoire
+
+# Bundle analysis
+analyse la taille du bundle JavaScript
+identifie les imports inutilisés
+
+# Suggestions d'amélioration
+suggère des améliorations pour ce code
+```
+
+### Débogage Avancé
+
+```bash
+# Debugging assisté
+aide-moi à débugger cette erreur
+trace cette exception jusqu'à sa source
+
+# Logs intelligents
+ajoute des logs stratégiques à ce code
+
+# Tests de régression
+crée un test qui reproduit ce bug
+```
+
+---
+
+## 📚 Patterns et Conventions
+
+### Bonnes Pratiques
+
+| Technique | Description |
+|-----------|-------------|
+| **Prompts spécifiques** | Soyez précis dans vos demandes pour de meilleurs résultats |
+| **Contexte graduel** | Commencez large puis affinez progressivement |
+| **Vérification croisée** | Demandez à Claude de vérifier son propre code |
+| **Documentation en continu** | Documentez au fur et à mesure |
+
+### Workflow Recommandé
+
+```bash
+# 1. Compréhension
+lis et explique la structure de ce projet
+
+# 2. Planification  
+propose un plan pour implémenter cette feature
+
+# 3. Implémentation
+implémente étape par étape selon le plan
+
+# 4. Test et validation
+teste le code et corrige les erreurs
+
+# 5. Documentation
+documente les changements effectués
+```
+
+---
+
+## 🚀 Commandes Expertes
+
+### Manipulation de Projet
+
+```bash
+# Architecture analysis
+analyse l'architecture globale du projet
+identifie les anti-patterns architectural
+
+# Dependency management
+vérifie les vulnérabilités des dépendances
+propose des alternatives aux packages obsolètes
+
+# Performance profiling
+profile l'application complète
+suggère des optimisations de performance
+```
+
+### Intégrations Avancées
+
+```bash
+# Docker
+génère un Dockerfile optimisé pour ce projet
+configure docker-compose avec base de données
+
+# Kubernetes
+crée les manifests k8s pour ce service
+
+# Monitoring
+intègre des métriques de monitoring
+configure des alertes automatiques
+```
+
+---
+
+## 🧠 Tips d'Expert
+
+### Maximiser l'Efficacité
+
+- **Contexte riche** : Donnez toujours le contexte métier de votre demande
+- **Itération rapide** : Testez rapidement et itérez plutôt que de viser la perfection
+- **Spécialisation** : Utilisez Claude Code pour des tâches spécialisées complexes
+- **Collaboration** : Traitez Claude comme un pair programming partner
+
+### Prompts Puissants
+
+```bash
+# Analyse complète
+"Analyse ce composant React et suggère des améliorations de performance, 
+sécurité et maintenabilité avec des exemples de code"
+
+# Débogage contextuel  
+"Cette fonction devrait retourner X mais retourne Y. 
+Voici les inputs de test: [...]. Aide-moi à identifier le problème"
+
+# Refactoring guidé
+"Refactorise ce code legacy en suivant les best practices modernes, 
+explique chaque changement et pourquoi il améliore le code"
+```
+
+---
+
+## ⚡ Raccourcis et Astuces
+
+### Navigation Rapide
+
+| Raccourci | Action |
+|-----------|--------|
+| <kbd>Ctrl</kbd> + <kbd>C</kbd> | Interrompre la commande courante |
+| <kbd>↑</kbd> / <kbd>↓</kbd> | Naviguer dans l'historique |
+| <kbd>Tab</kbd> | Autocomplétion |
+| <kbd>Ctrl</kbd> + <kbd>L</kbd> | Effacer l'écran |
+
+### Variables d'Environnement
+
+```bash
+# Configuration personnalisée
+export CLAUDE_STYLE="detailed"
+export CLAUDE_LANG="fr"
+export CLAUDE_PROJECT_TYPE="react"
+```
+
+---
+
+👉 Ce guide vous accompagne de vos premiers pas aux techniques les plus avancées avec Claude Code. Commencez par les bases et progressez graduellement vers les fonctionnalités expertes.

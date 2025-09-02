@@ -8,22 +8,22 @@ description: Guide des raccourcis Ghostty, le terminal moderne ultra-performant
 | Raccourci                                                                | Action                                 |
 | ------------------------------------------------------------------------ | -------------------------------------- |
 | <kbd>⌘</kbd> + <kbd>T</kbd>                                              | Nouvel **onglet**                      |
-| <kbd>⌘</kbd> + <kbd>W</kbd>                                              | Fermer l’**onglet/surface**            |
+| <kbd>⌘</kbd> + <kbd>W</kbd>                                              | Fermer l'**onglet/surface**            |
 | <kbd>⌘</kbd> + <kbd>N</kbd>                                              | Nouvelle **fenêtre**                   |
 | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>W</kbd>                               | **Fermer la fenêtre**                  |
 | <kbd>⌘</kbd> + <kbd>⇧</kbd> + <kbd>[</kbd>                               | Onglet **précédent**                   |
 | <kbd>⌘</kbd> + <kbd>⇧</kbd> + <kbd>]</kbd>                               | Onglet **suivant**                     |
-| <kbd>⌘</kbd> + <kbd>1…8</kbd>                                            | Aller à l’onglet **n°1–8**             |
+| <kbd>⌘</kbd> + <kbd>1…8</kbd>                                            | Aller à l'onglet **n°1–8**             |
 | <kbd>⌘</kbd> + <kbd>9</kbd>                                              | Aller au **dernier** onglet            |
-| <kbd>⌘</kbd> + <kbd>K</kbd>                                              | **Effacer** l’écran + scrollback       |
+| <kbd>⌘</kbd> + <kbd>K</kbd>                                              | **Effacer** l'écran + scrollback       |
 | <kbd>⌘</kbd> + <kbd>↩</kbd> / <kbd>⌃</kbd> + <kbd>⌘</kbd> + <kbd>F</kbd> | **Plein écran**                        |
 | <kbd>⌘</kbd> + <kbd>,</kbd>                                              | Ouvrir le **fichier de configuration** |
 | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>,</kbd>                               | **Recharger** la configuration         |
 
 🔴 **Remarques**
 
-- Par défaut sur macOS, Ghostty utilise **⌘⇧[ / ⌘⇧]** pour onglet précédent/suivant (comportement « macOS natif »). Selon ta config système, **Ctrl+Tab** peut aussi fonctionner, mais **ce n’est pas le binding par défaut** de Ghostty.
-- Rechargement de la conf : **⌘⇧,** est le raccourci par défaut documenté.
+- Par défaut sur macOS, Ghostty utilise **⌘⇧[ / ⌘⇧]** pour onglet précédent/suivant (comportement « macOS natif »). Selon ta config système, **Ctrl+Tab** peut aussi fonctionner, mais **ce n'est pas le binding par défaut** de Ghostty.
+- Rechargement de la conf : **⌘⇧,** est le raccourci par défaut documenté.
 
 ## Splits (panneaux) & affichage
 
@@ -39,8 +39,8 @@ description: Guide des raccourcis Ghostty, le terminal moderne ultra-performant
 
 🔴 **Remarques**
 
-- <kbd>⌘</kbd>+<kbd>W</kbd> ferme le **split actif** s’il n’y a pas d’onglet distinct
-  (sinon : ferme l’onglet).
+- <kbd>⌘</kbd>+<kbd>W</kbd> ferme le **split actif** s'il n'y a pas d'onglet distinct
+  (sinon : ferme l'onglet).
 
 ## Navigation & scrollback
 
@@ -48,14 +48,14 @@ description: Guide des raccourcis Ghostty, le terminal moderne ultra-performant
 | --------------------------------------------------------- | ------------------------------------------------- |
 | <kbd>⌘</kbd> + <kbd>Home</kbd>                            | Aller en **haut** du buffer                       |
 | <kbd>⌘</kbd> + <kbd>End</kbd>                             | Aller en **bas** du buffer                        |
-| <kbd>⌘</kbd> + <kbd>Page Up/Down</kbd>                    | **Page** précédente / suivante                    |
+| <kbd>⌘</kbd> + <kbd>Page Up/Down</kbd>                    | **Page** précédente / suivante                    |
 | <kbd>⌘</kbd> + <kbd>↑</kbd> / <kbd>⌘</kbd> + <kbd>↓</kbd> | **Jump to prompt** précédent/suivant              |
 | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>J</kbd>                | **Écrire** le scrollback dans un fichier (paste)  |
-| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>⌥</kbd> + <kbd>J</kbd> | Écrire **et ouvrir** le scrollback dans l’éditeur |
+| <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>⌥</kbd> + <kbd>J</kbd> | Écrire **et ouvrir** le scrollback dans l'éditeur |
 
 🔴 **Remarques**
 
-- Ghostty **n’a pas encore** de recherche intégrée type <kbd>⌘</kbd>+<kbd>F</kbd>. Astuce : bind **Ctrl+F** pour ouvrir le scrollback dans un éditeur, puis chercher là‑dedans :
+- Ghostty **n'a pas encore** de recherche intégrée type <kbd>⌘</kbd>+<kbd>F</kbd>. Astuce : bind **Ctrl+F** pour ouvrir le scrollback dans un éditeur, puis chercher là‑dedans :
 
   keybind = ctrl+f=write_scrollback_file:open
 
@@ -77,12 +77,12 @@ description: Guide des raccourcis Ghostty, le terminal moderne ultra-performant
 
 ## Tips Ghostty (qualité de vie)
 
-- **Lister les raccourcis par défaut** :
+- **Lister les raccourcis par défaut** :
 
   ghostty +list-keybinds --default
 
-- **Réassigner** des raccourcis globaux du système si conflit (ex. **⌘⇧[/** **⌘⇧]**) via **Réglages macOS → Clavier → Raccourcis → Raccourcis d’app**.
-- **Quick Terminal** : fonctionnalité « tiroir » (pas de binding par défaut). Tu peux lier par ex. :
+- **Réassigner** des raccourcis globaux du système si conflit (ex. **⌘⇧[/** **⌘⇧]**) via **Réglages macOS → Clavier → Raccourcis → Raccourcis d'app**.
+- **Quick Terminal** : fonctionnalité « tiroir » (pas de binding par défaut). Tu peux lier par ex. :
 
   keybind = global:ctrl+grave_accent=toggle_quick_terminal
 
@@ -91,6 +91,17 @@ description: Guide des raccourcis Ghostty, le terminal moderne ultra-performant
 > 🔴 **Références**
 >
 > - Keybindings (aperçu) et **Action Reference** (liste complète).
-> - Configuration : **Reload config** par défaut <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>,</kbd>.
+> - Configuration : **Reload config** par défaut <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>,</kbd>.
 > - Raccourcis par défaut compilés par la communauté (Windows/Linux/macOS).
-> - Manpage : `ghostty +list-keybinds --default` disponible.
+> - Manpage : `ghostty +list-keybinds --default` disponible.
+
+## 📚 Ressources Utiles
+
+- [Documentation officielle Ghostty](https://ghostty.org/docs)
+- [Ghostty Configuration Reference](https://ghostty.org/docs/config)
+- [GitHub Repository - Ghostty](https://github.com/mitchellh/ghostty)
+- [Ghostty Keybindings Reference](https://ghostty.org/docs/keybind/all)
+
+---
+
+_Ce guide est un document vivant. N'hésitez pas à le compléter avec vos propres découvertes et cas d'usage !_

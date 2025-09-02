@@ -3,7 +3,6 @@ title: PostgreSQL
 description: Guide complet PostgreSQL avec commandes psql et requêtes SQL avancées
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 PostgreSQL est un système de gestion de base de données relationnelle open source puissant et extensible. Ce guide répertorie les commandes essentielles et les bonnes pratiques.
 
@@ -65,15 +64,9 @@ PostgreSQL est un système de gestion de base de données relationnelle open sou
 
 ## 📊 Requêtes SQL Essentielles
 
-<Tabs items={['DDL', 'DML', 'SELECT', 'JSON']}>
-<Tab value="DDL">
-
-### Data Definition Language
+### DDL - Data Definition Language
 
 ```sql
--- Créer une base de données
-CREATE DATABASE nom_base;
-
 -- Créer une table
 CREATE TABLE utilisateurs (
     id SERIAL PRIMARY KEY,
@@ -82,422 +75,197 @@ CREATE TABLE utilisateurs (
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Ajouter une colonne
+-- Modifier une table
 ALTER TABLE utilisateurs ADD COLUMN age INTEGER;
-
--- Modifier une colonne
 ALTER TABLE utilisateurs ALTER COLUMN nom TYPE VARCHAR(200);
 
--- Supprimer une colonne
-ALTER TABLE utilisateurs DROP COLUMN age;
-
--- Créer un index
+-- Index et vues
 CREATE INDEX idx_email ON utilisateurs(email);
-
--- Créer une vue
-CREATE VIEW utilisateurs_actifs AS
-SELECT * FROM utilisateurs WHERE actif = true;
+CREATE VIEW utilisateurs_actifs AS SELECT * FROM utilisateurs WHERE actif = true;
 ```
 
-</Tab>
-<Tab value="DML">
-
-### Data Manipulation Language
+### DML - Data Manipulation Language
 
 ```sql
--- Insertion simple
-INSERT INTO utilisateurs (nom, email)
-VALUES ('Jean Dupont', 'jean@example.com');
-
--- Insertion multiple
-INSERT INTO utilisateurs (nom, email) VALUES
+-- Insertion
+INSERT INTO utilisateurs (nom, email) VALUES ('Jean Dupont', 'jean@example.com');
+INSERT INTO utilisateurs (nom, email) VALUES 
     ('Alice Martin', 'alice@example.com'),
-    ('Bob Leroy', 'bob@example.com');
-
--- Insertion avec retour
-INSERT INTO utilisateurs (nom, email)
-VALUES ('Marie Claire', 'marie@example.com')
+    ('Bob Leroy', 'bob@example.com')
 RETURNING id, nom;
 
 -- Mise à jour
-UPDATE utilisateurs
-SET email = 'nouveau@example.com'
-WHERE id = 1;
+UPDATE utilisateurs SET email = 'nouveau@example.com' WHERE id = 1;
 
--- Mise à jour avec jointure
-UPDATE commandes c
-SET statut = 'livré'
-FROM utilisateurs u
-WHERE c.utilisateur_id = u.id
-AND u.pays = 'France';
+-- UPSERT
+INSERT INTO utilisateurs (email, nom)
+VALUES ('test@example.com', 'Test User')
+ON CONFLICT (email) DO UPDATE SET nom = EXCLUDED.nom;
 
 -- Suppression
 DELETE FROM utilisateurs WHERE id = 5;
-
--- UPSERT (INSERT ON CONFLICT)
-INSERT INTO utilisateurs (email, nom)
-VALUES ('test@example.com', 'Test User')
-ON CONFLICT (email)
-DO UPDATE SET nom = EXCLUDED.nom;
 ```
-
-</Tab>
-<Tab value="SELECT">
 
 ### Requêtes SELECT Avancées
 
 ```sql
--- WITH (CTE - Common Table Expression)
+-- CTE (Common Table Expression)
 WITH ventes_mensuelles AS (
-    SELECT
-        DATE_TRUNC('month', date_vente) AS mois,
-        SUM(montant) AS total
-    FROM ventes
-    GROUP BY DATE_TRUNC('month', date_vente)
+    SELECT DATE_TRUNC('month', date_vente) AS mois, SUM(montant) AS total
+    FROM ventes GROUP BY DATE_TRUNC('month', date_vente)
 )
-SELECT * FROM ventes_mensuelles
-WHERE total > 10000;
+SELECT * FROM ventes_mensuelles WHERE total > 10000;
 
 -- Window Functions
-SELECT
-    nom,
-    departement,
-    salaire,
+SELECT nom, departement, salaire,
     AVG(salaire) OVER (PARTITION BY departement) AS salaire_moyen_dept,
     RANK() OVER (PARTITION BY departement ORDER BY salaire DESC) AS rang
 FROM employes;
 
--- GROUPING SETS
-SELECT
-    categorie,
-    sous_categorie,
-    SUM(prix) AS total
-FROM produits
-GROUP BY GROUPING SETS (
-    (categorie, sous_categorie),
-    (categorie),
-    ()
-);
-
 -- Requête récursive
 WITH RECURSIVE hierarchie AS (
-    SELECT id, nom, manager_id, 1 AS niveau
-    FROM employes
-    WHERE manager_id IS NULL
-
+    SELECT id, nom, manager_id, 1 AS niveau FROM employes WHERE manager_id IS NULL
     UNION ALL
-
     SELECT e.id, e.nom, e.manager_id, h.niveau + 1
-    FROM employes e
-    JOIN hierarchie h ON e.manager_id = h.id
+    FROM employes e JOIN hierarchie h ON e.manager_id = h.id
 )
 SELECT * FROM hierarchie;
 ```
 
-</Tab>
-<Tab value="JSON">
-
 ### Manipulation JSON/JSONB
 
 ```sql
--- Créer une table avec JSONB
-CREATE TABLE evenements (
-    id SERIAL PRIMARY KEY,
-    donnees JSONB NOT NULL
-);
+-- Table avec JSONB
+CREATE TABLE evenements (id SERIAL PRIMARY KEY, donnees JSONB NOT NULL);
 
--- Insertion de données JSON
-INSERT INTO evenements (donnees) VALUES
-    ('{"type": "click", "page": "/home", "user": {"id": 1, "name": "Alice"}}'),
-    ('{"type": "view", "page": "/product", "user": {"id": 2, "name": "Bob"}}');
+-- Insertion JSON
+INSERT INTO evenements (donnees) VALUES 
+    ('{"type": "click", "user": {"id": 1, "name": "Alice"}}');
 
--- Requêtes sur JSON
--- Accès simple
+-- Requêtes JSON
 SELECT donnees->>'type' AS type_evenement FROM evenements;
-
--- Accès imbriqué
 SELECT donnees->'user'->>'name' AS nom_utilisateur FROM evenements;
-
--- Filtre avec opérateur @>
-SELECT * FROM evenements
-WHERE donnees @> '{"type": "click"}';
-
--- Agrégation JSON
-SELECT jsonb_agg(donnees) FROM evenements;
+SELECT * FROM evenements WHERE donnees @> '{"type": "click"}';
 
 -- Mise à jour JSON
-UPDATE evenements
-SET donnees = jsonb_set(donnees, '{user,status}', '"active"')
-WHERE id = 1;
+UPDATE evenements SET donnees = jsonb_set(donnees, '{user,status}', '"active"') WHERE id = 1;
 ```
-
-</Tab>
-</Tabs>
 
 ## 🔧 Administration
 
-<Tabs items={['Utilisateurs & Permissions', 'Maintenance', 'Backup & Restore', 'Monitoring']}>
-<Tab value="Utilisateurs & Permissions">
-
-### Gestion des Utilisateurs et Permissions
+### Utilisateurs et Permissions
 
 ```sql
--- Créer un utilisateur
+-- Créer utilisateur/rôle
 CREATE USER nom_utilisateur WITH PASSWORD 'mot_de_passe';
-
--- Créer un rôle
 CREATE ROLE nom_role;
 
--- Donner des privilèges
+-- Gestion des privilèges
 GRANT ALL PRIVILEGES ON DATABASE nom_db TO nom_utilisateur;
 GRANT SELECT, INSERT ON TABLE nom_table TO nom_utilisateur;
-GRANT USAGE ON SCHEMA nom_schema TO nom_utilisateur;
-
--- Révoquer des privilèges
 REVOKE INSERT ON TABLE nom_table FROM nom_utilisateur;
 
--- Modifier un utilisateur
+-- Modifier utilisateur
 ALTER USER nom_utilisateur WITH SUPERUSER;
-ALTER USER nom_utilisateur WITH PASSWORD 'nouveau_mdp';
-
--- Attribuer un rôle
 GRANT nom_role TO nom_utilisateur;
-
--- Lister les permissions
-SELECT * FROM information_schema.role_table_grants
-WHERE grantee = 'nom_utilisateur';
 ```
-
-</Tab>
-<Tab value="Maintenance">
 
 ### Maintenance et Optimisation
 
 ```sql
--- Analyser les statistiques
+-- Maintenance de base
 ANALYZE nom_table;
-ANALYZE; -- Toute la base
-
--- VACUUM (nettoyer l'espace)
-VACUUM nom_table;
-VACUUM FULL nom_table; -- Plus agressif mais lock la table
-VACUUM ANALYZE nom_table; -- Les deux en une fois
-
--- Réindexer
+VACUUM ANALYZE nom_table;
 REINDEX TABLE nom_table;
-REINDEX DATABASE nom_db;
 
--- Vérifier la taille
-SELECT
-    pg_size_pretty(pg_database_size('nom_db')) AS taille_db;
-
-SELECT
-    schemaname AS schema,
-    tablename AS table,
+-- Vérifier les tailles
+SELECT pg_size_pretty(pg_database_size('nom_db')) AS taille_db;
+SELECT schemaname, tablename, 
     pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) AS taille
-FROM pg_tables
-ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC
-LIMIT 10;
-
--- Identifier les requêtes lentes
-SELECT
-    query,
-    calls,
-    total_time,
-    mean_time,
-    max_time
-FROM pg_stat_statements
-ORDER BY mean_time DESC
-LIMIT 10;
+FROM pg_tables ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC LIMIT 10;
 ```
 
-</Tab>
-<Tab value="Backup & Restore">
-
-### Sauvegarde et Restauration
+### Backup et Restore
 
 ```bash
-# Backup complet d'une base
+# Backup essentiels
 pg_dump nom_db > backup.sql
-pg_dump -Fc nom_db > backup.dump  # Format custom (compressé)
-
-# Backup avec options
-pg_dump -h localhost -U utilisateur -d nom_db -f backup.sql
-
-# Backup d'une table spécifique
+pg_dump -Fc nom_db > backup.dump  # Format compressé
 pg_dump -t nom_table nom_db > table_backup.sql
-
-# Backup schéma uniquement
-pg_dump -s nom_db > schema.sql
-
-# Backup données uniquement
-pg_dump -a nom_db > data.sql
 
 # Restauration
 psql nom_db < backup.sql
-
-# Restauration format custom
 pg_restore -d nom_db backup.dump
-
-# Backup de toutes les bases
-pg_dumpall > all_databases.sql
-
-# Restauration avec pg_restore
-pg_restore -h localhost -U utilisateur -d nom_db -v backup.dump
 ```
 
-</Tab>
-<Tab value="Monitoring">
-
-### Monitoring et Diagnostics
+### Monitoring
 
 ```sql
 -- Connexions actives
-SELECT
-    pid,
-    usename,
-    application_name,
-    client_addr,
-    state,
-    query
-FROM pg_stat_activity
-WHERE state != 'idle';
+SELECT pid, usename, state, query FROM pg_stat_activity WHERE state != 'idle';
 
--- Tuer une connexion
-SELECT pg_terminate_backend(pid)
-FROM pg_stat_activity
-WHERE pid = 12345;
-
--- Locks actifs
-SELECT
-    l.pid,
-    a.usename,
-    l.locktype,
-    l.mode,
-    l.granted,
-    a.query
-FROM pg_locks l
-JOIN pg_stat_activity a ON l.pid = a.pid
-WHERE NOT l.granted;
+-- Performance
+SELECT query, calls, total_time, mean_time FROM pg_stat_statements ORDER BY mean_time DESC LIMIT 10;
 
 -- Cache hit ratio
-SELECT
-    sum(heap_blks_hit) / (sum(heap_blks_hit) + sum(heap_blks_read)) AS cache_hit_ratio
-FROM pg_statio_user_tables;
-
--- Tables les plus volumineuses
-SELECT
-    schemaname,
-    tablename,
-    pg_size_pretty(pg_relation_size(schemaname||'.'||tablename)) AS taille
-FROM pg_stat_user_tables
-ORDER BY pg_relation_size(schemaname||'.'||tablename) DESC
-LIMIT 10;
+SELECT sum(heap_blks_hit) / (sum(heap_blks_hit) + sum(heap_blks_read)) AS cache_hit_ratio FROM pg_statio_user_tables;
 ```
-
-</Tab>
-</Tabs>
 
 ## 💡 Tips & Bonnes Pratiques
 
-<Tabs items={['Performance', 'Sécurité', 'Développement']}>
-<Tab value="Performance">
+### Performance
 
-### Optimisation des Performances
+**Indexes et analyse**
+```sql
+-- Analyser les performances
+EXPLAIN ANALYZE SELECT * FROM table WHERE condition;
 
-1. **Indexes**
+-- Éviter SELECT * - être spécifique
+SELECT col1, col2 FROM table;
 
-   - Créez des indexes sur les colonnes utilisées dans WHERE, JOIN, ORDER BY
-   - Utilisez `EXPLAIN ANALYZE` pour analyser vos requêtes
-   - Évitez les indexes inutiles (coût de maintenance)
+-- Créer des indexes sur les colonnes de recherche
+CREATE INDEX idx_email ON utilisateurs(email);
+```
 
-2. **Requêtes**
+**Configuration recommandée**
+- `shared_buffers` : 25% de la RAM
+- `work_mem` : pour les tris et jointures
+- Activer `pg_stat_statements` pour le monitoring
 
-   ```sql
-   -- Utiliser EXPLAIN pour analyser
-   EXPLAIN ANALYZE SELECT * FROM table WHERE condition;
+### Sécurité
 
-   -- Éviter SELECT *
-   SELECT col1, col2 FROM table;  -- Mieux que SELECT *
+**Permissions**
+```sql
+-- Principe du moindre privilège
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+CREATE ROLE lecture_seule;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO lecture_seule;
+```
 
-   -- Utiliser LIMIT pour les tests
-   SELECT * FROM grande_table LIMIT 100;
-   ```
+**Configuration**
+- Mots de passe forts obligatoires
+- SSL/TLS activé
+- `pg_hba.conf` correctement configuré
 
-3. **Configuration**
-   - Ajustez `shared_buffers` (généralement 25% de la RAM)
-   - Configurez `work_mem` pour les tris et jointures
-   - Activez `pg_stat_statements` pour le monitoring
+### Développement
 
-</Tab>
-<Tab value="Sécurité">
+**Transactions avec savepoints**
+```sql
+BEGIN;
+SAVEPOINT mon_savepoint;
+-- Opération risquée
+ROLLBACK TO mon_savepoint;  -- Si erreur
+COMMIT;
+```
 
-### Bonnes Pratiques de Sécurité
+**Contraintes et types**
+```sql
+-- CHECK constraint
+ALTER TABLE produits ADD CONSTRAINT prix_positif CHECK (prix > 0);
 
-1. **Authentification**
-
-   - Utilisez toujours des mots de passe forts
-   - Configurez `pg_hba.conf` correctement
-   - Préférez l'authentification par certificat en production
-
-2. **Permissions**
-
-   ```sql
-   -- Principe du moindre privilège
-   REVOKE ALL ON SCHEMA public FROM PUBLIC;
-
-   -- Créer des rôles spécifiques
-   CREATE ROLE lecture_seule;
-   GRANT SELECT ON ALL TABLES IN SCHEMA public TO lecture_seule;
-   ```
-
-3. **Chiffrement**
-   - Activez SSL/TLS pour les connexions
-   - Utilisez `pgcrypto` pour chiffrer les données sensibles
-
-</Tab>
-<Tab value="Développement">
-
-### Tips pour le Développement
-
-1. **Transactions**
-
-   ```sql
-   BEGIN;
-   -- Vos opérations
-   SAVEPOINT mon_savepoint;
-   -- Opération risquée
-   ROLLBACK TO mon_savepoint;  -- Si erreur
-   COMMIT;  -- Si tout va bien
-   ```
-
-2. **Contraintes utiles**
-
-   ```sql
-   -- CHECK constraint
-   ALTER TABLE produits
-   ADD CONSTRAINT prix_positif CHECK (prix > 0);
-
-   -- Exclusion constraint
-   CREATE TABLE reservations (
-       salle TEXT,
-       periode TSRANGE,
-       EXCLUDE USING GIST (salle WITH =, periode WITH &&)
-   );
-   ```
-
-3. **Types personnalisés**
-
-   ```sql
-   -- Créer un type ENUM
-   CREATE TYPE statut_commande AS ENUM ('en_attente', 'traitement', 'expédié', 'livré');
-
-   -- Créer un domaine
-   CREATE DOMAIN email AS TEXT CHECK (VALUE ~ '^[^@]+@[^@]+\.[^@]+$');
-   ```
-
-</Tab>
-</Tabs>
+-- Type ENUM
+CREATE TYPE statut_commande AS ENUM ('en_attente', 'expédié', 'livré');
+```
 
 ## 📚 Ressources Utiles
 

@@ -27,240 +27,69 @@ Assistant IA de développement en ligne de commande pour comprendre, développer
 
 ## 📖 Workflows par Cas d'Usage
 
-<Tabs items={['Compréhension', 'Développement', 'Debug', 'Optimisation']}>
-<Tab value="Compréhension">
+### 🔍 Compréhension de Code
 
-### Explorer un Projet
-
+**Explorer un projet**
 ```bash
-# Vue d'ensemble
 Explique l'architecture de ce projet en 5 points
-
-# Structure et dépendances
 Montre-moi les relations entre les modules principaux
-
-# Technologies utilisées
-Liste toutes les technologies avec leurs rôles
-
-# Points d'entrée
-Quels fichiers dois-je lire en premier pour comprendre ce projet ?
+Quels fichiers dois-je lire en premier ?
 ```
 
-### Analyser le Code
-
+**Analyser le code**
 ```bash
-# Tracer les dépendances
 Trace toutes les utilisations de cette fonction
-
-# Patterns architecturaux
 Quels design patterns sont utilisés dans ce code ?
-
-# Complexité
-Analyse la complexité cyclomatique de ce module
-
-# Code mort
 Identifie les imports et fonctions non utilisés
-
-# Dépendances circulaires
-Détecte les dépendances circulaires dans src/
 ```
 
-### Navigation Intelligente
+### 💻 Développement
 
+**Génération de code**
 ```bash
-# Recherche sémantique
-Trouve tous les endroits qui gèrent l'authentification
-
-# Flow de données
-Montre le parcours des données depuis l'API jusqu'à l'UI
-
-# Documentation manquante
-Liste les fonctions publiques sans JSDoc
-
-# Impact d'un changement
-Qu'est-ce qui sera impacté si je modifie cette fonction ?
+Crée un composant Modal accessible avec tests
+Génère un CRUD avec validation et gestion d'erreurs
+Écris des tests unitaires avec 90% de couverture
 ```
 
-</Tab>
-<Tab value="Développement">
-
-### Génération de Code
-
+**Refactoring**
 ```bash
-# Composant React complet
-Crée un composant Modal accessible avec tests et stories
-
-# API REST
-Génère un CRUD avec validation, pagination et gestion d'erreurs
-
-# Types TypeScript
-Génère les types pour cette API response avec génériques
-
-# Tests
-Écris des tests unitaires avec 90% de couverture pour ce module
-```
-
-### Refactoring Intelligent
-
-```bash
-# Modernisation
 Refactorise ce code avec les hooks React modernes
-
-# Architecture
 Restructure ce code selon l'architecture hexagonale
-
-# Performance
-Optimise ce composant pour réduire les re-renders
-
-# Patterns
-Applique le pattern Observer à ce système d'événements
+Migre tous les class components vers functional
 ```
 
-### Scaffolding et Templates
+### 🐛 Debug et Git
 
+**Analyse d'erreurs**
 ```bash
-# Créer un template
-Crée un template de composant avec notre structure standard
-
-# Générer depuis template
-Génère 5 nouveaux composants basés sur ce template
-
-# Migration
-Migre tous les class components vers des functional components
-
-# Conversion TypeScript
-Convertis ce fichier JS en TypeScript avec types stricts
-```
-
-### Features Complexes
-
-```bash
-# Avec planification
-Propose un plan puis implémente un système de notifications temps réel
-
-# Event sourcing
-Implémente l'event sourcing pour cette feature
-
-# WebSocket
-Ajoute du temps réel avec WebSocket et reconnection automatique
-
-# State management
-Intègre Redux/Zustand avec les bonnes pratiques
-```
-
-</Tab>
-<Tab value="Debug">
-
-### Analyse d'Erreurs
-
-```bash
-# Stack trace
 Analyse cette erreur et propose 3 solutions
-
-# Debug guidé
 Guide-moi pas à pas pour résoudre ce problème
-
-# Root cause
-Trouve la cause racine de ce bug
-
-# Reproduction
 Crée un test qui reproduit ce bug
 ```
 
-### Git et Versioning
-
+**Git workflows**
 ```bash
-# Commit intelligent
 Analyse mes changements et crée un commit conventional
-
-# Résolution de conflits
-Aide-moi à résoudre ces conflits en gardant le bon code
-
-# Historique
-Explique l'évolution de ce fichier via son historique
-
-# Bisect
-Guide-moi avec git bisect pour trouver le commit problématique
-
-# PR complète
-Génère une PR avec description, breaking changes et checklist
+Aide-moi à résoudre ces conflits
+Génère une PR avec description et checklist
 ```
 
-### Debugging Avancé
+### ⚡ Optimisation
 
+**Performance**
 ```bash
-# Memory leaks
-Détecte les fuites mémoire dans ce code React
-
-# Race conditions
-Identifie les race conditions dans ce code async
-
-# Performance profiling
-Profile ce code et trouve les bottlenecks
-
-# Logs stratégiques
-Ajoute des logs aux endroits critiques avec les bons niveaux
-
-# Error boundaries
-Implémente la gestion d'erreur pour cette feature
-```
-
-</Tab>
-<Tab value="Optimisation">
-
-### Performance
-
-```bash
-# Bundle analysis
 Analyse le bundle et propose du code splitting
-
-# Lazy loading
 Implémente le lazy loading pour ces composants
-
-# Memoization
-Où ajouter useMemo et useCallback dans ce composant ?
-
-# Virtual scrolling
-Optimise cette liste de 10000 items avec virtual scrolling
-
-# Web Workers
-Déplace ce calcul lourd dans un Web Worker
+Optimise cette liste avec virtual scrolling
 ```
 
-### Métriques
-
+**Qualité**
 ```bash
-# Core Web Vitals
-Mesure et optimise les Core Web Vitals
-
-# Performance budget
-Établis un budget de performance pour ce projet
-
-# Monitoring
-Configure le Real User Monitoring avec Sentry
-
-# Benchmarks
-Crée des benchmarks pour mesurer les améliorations
-```
-
-### SEO et Accessibilité
-
-```bash
-# Audit SEO
 Effectue un audit SEO complet de cette page
-
-# ARIA
 Ajoute les attributs ARIA manquants
-
-# Navigation clavier
-Assure la navigation clavier complète
-
-# Screen readers
-Teste et optimise pour les lecteurs d'écran
+Configure le Real User Monitoring
 ```
-
-</Tab>
-</Tabs>
 
 ---
 

@@ -1,0 +1,424 @@
+---
+title: Claude Code
+description: Guide de référence - Commandes et workflows de développement
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { Callout } from "fumadocs-ui/components/callout";
+
+Assistant IA de développement en ligne de commande pour comprendre, développer, débugger et optimiser votre code.
+
+---
+
+## ⚡ Commandes Essentielles
+
+| Commande   | Description               | Exemple                         |
+| ---------- | ------------------------- | ------------------------------- |
+| `/help`    | Afficher l'aide           | `/help commands`                |
+| `/clear`   | Effacer l'historique      | `/clear`                        |
+| `/config`  | Modifier la configuration | `/config model claude-opus-4-1` |
+| `/model`   | Changer de modèle IA      | `/model claude-opus-4-1`        |
+| `/agents`  | Gérer les sous-agents     | `/agents list`                  |
+| `/add-dir` | Ajouter des répertoires   | `/add-dir src/components`       |
+| `/context` | Gérer le contexte actif   | `/context add package.json`     |
+| `/run`     | Exécuter des scripts npm  | `/run test`                     |
+
+---
+
+## 📖 Workflows par Cas d'Usage
+
+### 🔍 Compréhension de Code
+
+**Explorer un projet**
+
+```bash
+Explique l'architecture de ce projet en 5 points
+Montre-moi les relations entre les modules principaux
+Quels fichiers dois-je lire en premier ?
+```
+
+**Analyser le code**
+
+```bash
+Trace toutes les utilisations de cette fonction
+Quels design patterns sont utilisés dans ce code ?
+Identifie les imports et fonctions non utilisés
+```
+
+### 💻 Développement
+
+**Génération de code**
+
+```bash
+Crée un composant Modal accessible avec tests
+Génère un CRUD avec validation et gestion d'erreurs
+Écris des tests unitaires avec 90% de couverture
+```
+
+**Refactoring**
+
+```bash
+Refactorise ce code avec les hooks React modernes
+Restructure ce code selon l'architecture hexagonale
+Migre tous les class components vers functional
+```
+
+### 🐛 Debug et Git
+
+**Analyse d'erreurs**
+
+```bash
+Analyse cette erreur et propose 3 solutions
+Guide-moi pas à pas pour résoudre ce problème
+Crée un test qui reproduit ce bug
+```
+
+**Git workflows**
+
+```bash
+Analyse mes changements et crée un commit conventional
+Aide-moi à résoudre ces conflits
+Génère une PR avec description et checklist
+```
+
+### ⚡ Optimisation
+
+**Performance**
+
+```bash
+Analyse le bundle et propose du code splitting
+Implémente le lazy loading pour ces composants
+Optimise cette liste avec virtual scrolling
+```
+
+**Qualité**
+
+```bash
+Effectue un audit SEO complet de cette page
+Ajoute les attributs ARIA manquants
+Configure le Real User Monitoring
+```
+
+---
+
+## 🎯 Configuration Projet
+
+### Structure .claude/
+
+```
+.claude/
+├── settings.json          # Config partagée équipe
+├── settings.local.json    # Config personnelle
+├── commands/             # Commandes custom
+├── agents/               # Sous-agents spécialisés
+├── templates/            # Templates réutilisables
+└── CLAUDE.md            # Contexte du projet
+```
+
+### CLAUDE.md - Contexte Projet
+
+```markdown
+# Contexte Projet
+
+## Stack Technique
+
+- Next.js 14, TypeScript, Tailwind
+- Architecture: Clean Architecture + DDD
+- Tests: Jest, Playwright, 80% coverage min
+
+## Conventions
+
+- Components: PascalCase
+- Files: kebab-case
+- Pas de `any`, utiliser `unknown`
+- Hooks dans `/hooks`, logique dans `/domain`
+
+## Standards Qualité
+
+- SOLID principles
+- Tests first (TDD)
+- Performance: TTI < 3s
+- Accessibilité: WCAG 2.1 AA
+
+## Git Workflow
+
+- Conventional commits
+- Feature branches
+- Squash merge only
+```
+
+### Commandes Personnalisées
+
+```markdown
+# .claude/commands/review.md
+
+---
+
+name: review
+aliases: [rv, check]
+
+---
+
+Review complète du code :
+
+1. Qualité et maintenabilité
+2. Performance et optimisations
+3. Sécurité (XSS, injections)
+4. Couverture de tests
+5. Documentation
+
+Génère un rapport avec score.
+```
+
+---
+
+## 🤖 Agents Spécialisés
+
+### Créer un Agent Expert
+
+```markdown
+# .claude/agents/test-expert.md
+
+---
+
+name: test-expert
+model: claude-opus-4-1
+temperature: 0.3
+
+---
+
+Expert en TDD et testing.
+
+Principes:
+
+- Test first, code second
+- Un test = un comportement
+- AAA pattern (Arrange-Act-Assert)
+- Isolation complète
+- Données de test avec Faker
+```
+
+### Utilisation des Agents
+
+```bash
+# Charger un agent
+/agents load test-expert
+
+# Utiliser inline
+@test-expert écris les tests pour ce composant
+
+# Créer un nouvel agent
+/agents create security-expert
+
+# Exporter pour l'équipe
+/agents export test-expert
+```
+
+---
+
+## 🚀 Techniques Avancées
+
+### Automatisation CI/CD
+
+```bash
+# Pipeline complet
+Configure GitHub Actions avec tests, build et deploy
+
+# Pre-commit hooks
+Configure husky avec lint-staged
+
+# Changelog auto
+Configure semantic-release
+
+# Mise à jour des dépendances
+Configure Renovate pour les updates auto
+```
+
+### Migrations et Refactoring
+
+```bash
+# Migration framework
+Migre de Next.js 13 vers 14 avec app directory
+
+# Architecture
+Transforme ce monolithe en microservices
+
+# Modernisation
+Modernise ce code legacy avec les dernières pratiques
+
+# Performance
+Passe ce temps d'exécution de 10s à < 1s
+```
+
+### Sécurité
+
+```bash
+# Audit complet
+Effectue un audit de sécurité OWASP Top 10
+
+# Secrets exposés
+Détecte tous les secrets dans le code
+
+# Vulnérabilités
+Vérifie les CVE dans les dépendances
+
+# RGPD
+Vérifie la conformité RGPD
+```
+
+---
+
+## 💡 Patterns d'Utilisation
+
+### Workflow Efficace
+
+```bash
+# 1. Comprendre
+Explique ce que fait ce code
+
+# 2. Planifier
+Propose un plan pour cette feature
+
+# 3. Implémenter
+Implémente étape par étape
+
+# 4. Valider
+Ajoute tests et vérifie la qualité
+
+# 5. Documenter
+Mets à jour la documentation
+```
+
+### Prompting Optimal
+
+| Type               | Exemple                                              | Résultat            |
+| ------------------ | ---------------------------------------------------- | ------------------- |
+| **Contexte riche** | "Chat temps réel pour app B2B, 10k users simultanés" | Solution adaptée    |
+| **Étapes claires** | "Analyse, puis plan, puis code"                      | Approche structurée |
+| **Contraintes**    | "Sans libs externes, < 50 lignes"                    | Respect des limites |
+| **Validation**     | "Avec tests et docs"                                 | Solution complète   |
+
+### Anti-Patterns
+
+<Callout type="warning">
+  **À éviter:** - ❌ "Améliore ce code" → ✅ "Optimise les perfs de rendu" - ❌
+  "Fix le bug" → ✅ "Cette fonction retourne undefined, pourquoi?" - ❌
+  "Refactorise tout" → ✅ "Refactorise ce composant étape par étape"
+</Callout>
+
+---
+
+## 🔧 Troubleshooting
+
+| Problème             | Solution                                 |
+| -------------------- | ---------------------------------------- |
+| **Contexte perdu**   | `/context add [fichiers]` pour recharger |
+| **Réponses longues** | Demander "résume" ou "étape par étape"   |
+| **Code incorrect**   | Préciser versions et contexte            |
+| **Mémoire saturée**  | `/clear` puis recharger l'essentiel      |
+
+### Debug Claude Code
+
+```bash
+# Mode verbose
+CLAUDE_DEBUG=true claude
+
+# Vérifier config
+claude config --check
+
+# Reset complet
+claude reset
+```
+
+---
+
+## 📊 Cas Pratiques
+
+### Onboarding Projet
+
+```bash
+# Pour nouveau développeur
+Crée un guide d'onboarding avec:
+- Architecture et conventions
+- Commandes essentielles
+- Premier ticket recommandé
+- Qui contacter pour quoi
+```
+
+### Préparation Release
+
+```bash
+# Checklist automatique
+Vérifie:
+- Tests verts
+- Build production OK
+- Changelog à jour
+- Version bumped
+- Métriques performance OK
+```
+
+### Review Quotidienne
+
+```bash
+# Matin
+Résume les changements d'hier et priorités du jour
+
+# Avant commit
+Review mes changements pour qualité et bugs
+
+# Fin de journée
+Génère un résumé des accomplissements
+```
+
+---
+
+## 🌟 Tips Productivité
+
+### Alias Bash
+
+```bash
+alias cc="claude"
+alias cct="claude @test-expert"
+alias ccr="claude /run"
+alias ccc="claude /clear && claude"
+```
+
+### Snippets Fréquents
+
+```bash
+# Shortcuts utiles
+"explique et améliore"
+"debug avec contexte"
+"optimise les perfs"
+"ajoute tests et docs"
+"vérifie les best practices"
+```
+
+### Intégration IDE
+
+```bash
+# VS Code
+Configure l'extension Claude Code
+
+# Terminal split
+Claude à gauche, code à droite
+
+# Watch mode
+claude --watch pour suivi temps réel
+```
+
+<Callout type="success">
+  **💡 Rappel**: Claude Code est votre pair programmer. Soyez précis dans vos
+  demandes, itérez rapidement, et validez toujours le code généré.
+</Callout>
+
+## 📚 Ressources Utiles
+
+- [Documentation officielle Claude Code](https://docs.anthropic.com/en/docs/claude-code)
+- [Claude Code sur GitHub](https://github.com/anthropics/claude-code)
+- [Guide d'installation](https://docs.anthropic.com/en/docs/claude-code/installation)
+- [Communauté et support](https://github.com/anthropics/claude-code/discussions)
+
+---
+
+_Ce guide est un document vivant. N'hésitez pas à le compléter avec vos propres découvertes et cas d'usage !_

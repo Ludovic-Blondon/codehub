@@ -1,0 +1,187 @@
+---
+title: Oh My Zsh
+description: Liste complète des alias Oh My Zsh pour optimiser votre productivité en ligne de commande
+---
+
+## Navigation et répertoires
+
+| Alias   | Commande originale | Description                        |
+| ------- | ------------------ | ---------------------------------- |
+| `~`     | `cd ~`             | Aller au répertoire home           |
+| `/`     | `cd /`             | Aller à la racine du système       |
+| `..`    | `cd ..`            | Remonter d'un niveau               |
+| `...`   | `cd ../..`         | Remonter de deux niveaux           |
+| `....`  | `cd ../../..`      | Remonter de trois niveaux          |
+| `.....` | `cd ../../../..`   | Remonter de quatre niveaux         |
+| `-`     | `cd -`             | Retourner au répertoire précédent  |
+| `d`     | `dirs -v`          | Lister les répertoires récents     |
+| `md`    | `mkdir -p`         | Créer un répertoire (avec parents) |
+| `rd`    | `rmdir`            | Supprimer un répertoire vide       |
+
+### Raccourcis numériques pour les répertoires
+
+| Alias | Commande originale | Description                         |
+| ----- | ------------------ | ----------------------------------- |
+| `1`   | `cd -1`            | Aller au 1er répertoire de la pile  |
+| `2`   | `cd -2`            | Aller au 2ème répertoire de la pile |
+| `3`   | `cd -3`            | Aller au 3ème répertoire de la pile |
+| `4`   | `cd -4`            | Aller au 4ème répertoire de la pile |
+| `5`   | `cd -5`            | Aller au 5ème répertoire de la pile |
+| `6`   | `cd -6`            | Aller au 6ème répertoire de la pile |
+| `7`   | `cd -7`            | Aller au 7ème répertoire de la pile |
+| `8`   | `cd -8`            | Aller au 8ème répertoire de la pile |
+| `9`   | `cd -9`            | Aller au 9ème répertoire de la pile |
+
+## Alias Git essentiels
+
+### Commandes de base
+
+| Alias  | Commande originale  | Description                   |
+| ------ | ------------------- | ----------------------------- |
+| `g`    | `git`               | Commande git de base          |
+| `ga`   | `git add`           | Ajouter des fichiers          |
+| `gaa`  | `git add --all`     | Ajouter tous les fichiers     |
+| `gapa` | `git add --patch`   | Ajouter par morceaux          |
+| `gau`  | `git add --update`  | Ajouter les fichiers modifiés |
+| `gav`  | `git add --verbose` | Ajouter en mode verbose       |
+
+### Status et informations
+
+| Alias | Commande originale            | Description         |
+| ----- | ----------------------------- | ------------------- |
+| `gst` | `git status`                  | Voir le statut      |
+| `gss` | `git status --short`          | Statut condensé     |
+| `gsb` | `git status --short --branch` | Statut avec branche |
+
+### Commits
+
+| Alias   | Commande originale                       | Description                       |
+| ------- | ---------------------------------------- | --------------------------------- |
+| `gc`    | `git commit --verbose`                   | Commit avec message               |
+| `gc!`   | `git commit --verbose --amend`           | Amender le dernier commit         |
+| `gcn!`  | `git commit --verbose --no-edit --amend` | Amender sans éditer               |
+| `gca`   | `git commit --verbose --all`             | Commit tous les changements       |
+| `gca!`  | `git commit --verbose --all --amend`     | Amender avec tous les changements |
+| `gcam`  | `git commit --all --message`             | Commit avec message court         |
+| `gcsm`  | `git commit --signoff --message`         | Commit avec signature             |
+| `gcmsg` | `git commit --message`                   | Commit avec message               |
+
+### Branches
+
+| Alias  | Commande originale            | Description                |
+| ------ | ----------------------------- | -------------------------- |
+| `gb`   | `git branch`                  | Lister les branches        |
+| `gba`  | `git branch --all`            | Lister toutes les branches |
+| `gbd`  | `git branch --delete`         | Supprimer une branche      |
+| `gbD`  | `git branch --delete --force` | Forcer la suppression      |
+| `gbnm` | `git branch --no-merged`      | Branches non mergées       |
+| `gbr`  | `git branch --remote`         | Branches distantes         |
+
+### Checkout et switch
+
+| Alias  | Commande originale                   | Description                     |
+| ------ | ------------------------------------ | ------------------------------- |
+| `gco`  | `git checkout`                       | Changer de branche/commit       |
+| `gcb`  | `git checkout -b`                    | Créer et changer de branche     |
+| `gcm`  | `git checkout $(git_main_branch)`    | Aller sur la branche principale |
+| `gcd`  | `git checkout $(git_develop_branch)` | Aller sur develop               |
+| `gsw`  | `git switch`                         | Changer de branche (nouveau)    |
+| `gswc` | `git switch --create`                | Créer et changer de branche     |
+
+### Push et Pull
+
+| Alias   | Commande originale                                     | Description            |
+| ------- | ------------------------------------------------------ | ---------------------- |
+| `gp`    | `git push`                                             | Pousser les commits    |
+| `gpsup` | `git push --set-upstream origin $(git_current_branch)` | Premier push branche   |
+| `gpd`   | `git push --dry-run`                                   | Simulation de push     |
+| `gpf`   | `git push --force-with-lease`                          | Push forcé sécurisé    |
+| `gpf!`  | `git push --force`                                     | Push forcé             |
+| `gpoat` | `git push origin --all && git push origin --tags`      | Push tout              |
+| `gpv`   | `git push --verbose`                                   | Push en mode verbose   |
+| `gl`    | `git pull`                                             | Tirer les commits      |
+| `gup`   | `git pull --rebase`                                    | Pull avec rebase       |
+| `gupa`  | `git pull --rebase --autostash`                        | Pull rebase avec stash |
+
+### Logs et historique
+
+| Alias   | Commande originale                                                                                             | Description            |
+| ------- | -------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `glg`   | `git log --stat`                                                                                               | Log avec statistiques  |
+| `glgp`  | `git log --stat --patch`                                                                                       | Log avec diff          |
+| `glgg`  | `git log --graph`                                                                                              | Log graphique          |
+| `glgga` | `git log --graph --decorate --all`                                                                             | Log graphique complet  |
+| `glo`   | `git log --oneline --decorate`                                                                                 | Log condensé           |
+| `glog`  | `git log --oneline --decorate --graph`                                                                         | Log condensé graphique |
+| `glola` | `git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --all` | Log formaté coloré     |
+
+### Diff
+
+| Alias  | Commande originale                            | Description                      |
+| ------ | --------------------------------------------- | -------------------------------- |
+| `gd`   | `git diff`                                    | Voir les différences             |
+| `gdca` | `git diff --cached`                           | Diff des fichiers stagés         |
+| `gdcw` | `git diff --cached --word-diff`               | Diff mot par mot                 |
+| `gds`  | `git diff --staged`                           | Diff des changements stagés      |
+| `gdt`  | `git diff-tree --no-commit-id --name-only -r` | Fichiers modifiés dans un commit |
+
+### Merge et rebase
+
+| Alias  | Commande originale                      | Description                 |
+| ------ | --------------------------------------- | --------------------------- |
+| `gm`   | `git merge`                             | Merger une branche          |
+| `gmom` | `git merge origin/$(git_main_branch)`   | Merger depuis origin/main   |
+| `gmum` | `git merge upstream/$(git_main_branch)` | Merger depuis upstream/main |
+| `grb`  | `git rebase`                            | Rebaser                     |
+| `grba` | `git rebase --abort`                    | Annuler le rebase           |
+| `grbc` | `git rebase --continue`                 | Continuer le rebase         |
+| `grbd` | `git rebase $(git_develop_branch)`      | Rebaser sur develop         |
+| `grbi` | `git rebase --interactive`              | Rebase interactif           |
+| `grbm` | `git rebase $(git_main_branch)`         | Rebaser sur main            |
+| `grbs` | `git rebase --skip`                     | Ignorer dans le rebase      |
+
+## Utilitaires système
+
+| Alias       | Commande originale                           | Description                             |
+| ----------- | -------------------------------------------- | --------------------------------------- |
+| `alias`     | `alias`                                      | Lister tous les alias                   |
+| `take`      | Fonction pour créer et aller dans un dossier | Créer un dossier et s'y rendre          |
+| `zsh_stats` | Commande pour voir les stats                 | Top 20 des commandes les plus utilisées |
+
+### Exemples d'utilisation
+
+```bash
+# Navigation rapide
+... # équivaut à cd ../..
+d   # voir les répertoires récents
+2   # aller au 2ème répertoire de la pile
+
+# Git workflow typique
+gst      # git status
+ga .     # git add .
+gcmsg "mon commit"  # git commit --message "mon commit"
+gp       # git push
+
+# Branches Git
+gcb feature/nouvelle-fonctionnalite  # créer et changer de branche
+gco main    # retourner sur main
+gm feature/nouvelle-fonctionnalite   # merger la branche
+```
+
+> 🔴 **Remarque**
+>
+> Ces alias sont automatiquement disponibles avec Oh My Zsh. Pour voir tous les alias disponibles, tapez `alias` dans votre terminal.
+> Les alias Git nécessitent d'avoir le plugin git activé dans votre configuration Oh My Zsh.
+
+## 📚 Ressources Utiles
+
+- [Documentation officielle Oh My Zsh](https://ohmyz.sh/)
+- [Plugin Git - Documentation complète](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git)
+- [Cheatsheet complète Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Cheatsheet)
+- [Liste de tous les plugins disponibles](https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins)
+- [Thèmes Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes)
+- [Installation et configuration](https://github.com/ohmyzsh/ohmyzsh#basic-installation)
+
+---
+
+_Ce guide est un document vivant. N'hésitez pas à le compléter avec vos propres découvertes et cas d'usage !_

@@ -90,17 +90,18 @@ description: Liste complète des alias Oh My Zsh pour optimiser votre productivi
 
 ### Push et Pull
 
-| Alias   | Commande originale                                | Description            |
-| ------- | ------------------------------------------------- | ---------------------- |
-| `gp`    | `git push`                                        | Pousser les commits    |
-| `gpd`   | `git push --dry-run`                              | Simulation de push     |
-| `gpf`   | `git push --force-with-lease`                     | Push forcé sécurisé    |
-| `gpf!`  | `git push --force`                                | Push forcé             |
-| `gpoat` | `git push origin --all && git push origin --tags` | Push tout              |
-| `gpv`   | `git push --verbose`                              | Push en mode verbose   |
-| `gl`    | `git pull`                                        | Tirer les commits      |
-| `gup`   | `git pull --rebase`                               | Pull avec rebase       |
-| `gupa`  | `git pull --rebase --autostash`                   | Pull rebase avec stash |
+| Alias   | Commande originale                                     | Description            |
+| ------- | ------------------------------------------------------ | ---------------------- |
+| `gp`    | `git push`                                             | Pousser les commits    |
+| `gpsup` | `git push --set-upstream origin $(git_current_branch)` | Premier push branche   |
+| `gpd`   | `git push --dry-run`                                   | Simulation de push     |
+| `gpf`   | `git push --force-with-lease`                          | Push forcé sécurisé    |
+| `gpf!`  | `git push --force`                                     | Push forcé             |
+| `gpoat` | `git push origin --all && git push origin --tags`      | Push tout              |
+| `gpv`   | `git push --verbose`                                   | Push en mode verbose   |
+| `gl`    | `git pull`                                             | Tirer les commits      |
+| `gup`   | `git pull --rebase`                                    | Pull avec rebase       |
+| `gupa`  | `git pull --rebase --autostash`                        | Pull rebase avec stash |
 
 ### Logs et historique
 

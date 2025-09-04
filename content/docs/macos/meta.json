@@ -1,0 +1,12 @@
+{
+  "title": "macOS",
+  "description": "Guide complet des raccourcis clavier macOS pour développeurs",
+  "pages": [
+    "bases",
+    "fenetres", 
+    "developpement",
+    "edition",
+    "capture",
+    "système"
+  ]
+}

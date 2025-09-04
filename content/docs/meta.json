@@ -1,12 +1,12 @@
 {
   "pages": [
     "---MacOS---",
-    "macos/bases.mdx",
-    "macos/fenetres.mdx",
-    "macos/developpement.mdx",
-    "macos/edition.mdx",
-    "macos/capture.mdx",
-    "macos/système.mdx",
+    "macos/basics.mdx",
+    "macos/windows.mdx",
+    "macos/development.mdx",
+    "macos/editing.mdx",
+    "macos/screenshot.mdx",
+    "macos/system.mdx",
     "---AI---",
     "ai/claude-code.mdx",
     "---Terminal---",

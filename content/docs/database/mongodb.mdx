@@ -1,11 +1,6 @@
 ---
 title: MongoDB
-description: Guide complet MongoDB avec commandes essentielles et bonnes pratiques
----
-
-
-MongoDB est une base de données NoSQL orientée documents, conçue pour la scalabilité et la flexibilité. Ce guide répertorie les commandes essentielles et les bonnes pratiques.
-
+description: MongoDB est une base de données NoSQL orientée documents, conçue pour la scalabilité et la flexibilité. Ce guide répertorie les commandes essentielles et les bonnes pratiques.
 ---
 
 ## 🚀 Commandes MongoDB Shell
@@ -76,12 +71,12 @@ db.users.insertOne({ name: "Jean", email: "jean@example.com", age: 30 });
 // Insertion multiple
 db.users.insertMany([
   { name: "Alice", email: "alice@example.com", tags: ["premium"] },
-  { name: "Bob", email: "bob@example.com", age: 35 }
+  { name: "Bob", email: "bob@example.com", age: 35 },
 ]);
 
 // Bulk Insert pour performance
 db.logs.bulkWrite([
-  { insertOne: { document: { event: "login", timestamp: new Date() } } }
+  { insertOne: { document: { event: "login", timestamp: new Date() } } },
 ]);
 ```
 
@@ -114,7 +109,10 @@ db.users.updateOne(
 // Opérateurs essentiels
 db.products.updateOne({ name: "Laptop" }, { $inc: { stock: -1 } });
 db.users.updateOne({ email: "alice@example.com" }, { $push: { tags: "vip" } });
-db.users.updateOne({ email: "alice@example.com" }, { $addToSet: { tags: "newsletter" } });
+db.users.updateOne(
+  { email: "alice@example.com" },
+  { $addToSet: { tags: "newsletter" } }
+);
 
 // Upsert
 db.users.updateOne(
@@ -132,7 +130,9 @@ db.users.deleteOne({ email: "test@example.com" });
 db.users.deleteMany({ status: "inactive" });
 
 // Suppression avec condition
-db.logs.deleteMany({ timestamp: { $lt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) } });
+db.logs.deleteMany({
+  timestamp: { $lt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
+});
 
 // FindOneAndDelete
 db.users.findOneAndDelete({ email: "old@example.com" });

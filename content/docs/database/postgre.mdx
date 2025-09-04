@@ -1,11 +1,6 @@
 ---
 title: PostgreSQL
-description: Guide complet PostgreSQL avec commandes psql et requêtes SQL avancées
----
-
-
-PostgreSQL est un système de gestion de base de données relationnelle open source puissant et extensible. Ce guide répertorie les commandes essentielles et les bonnes pratiques.
-
+description: PostgreSQL est un système de gestion de base de données relationnelle open source puissant et extensible. Ce guide répertorie les commandes essentielles et les bonnes pratiques.
 ---
 
 ## 🚀 Commandes psql
@@ -89,7 +84,7 @@ CREATE VIEW utilisateurs_actifs AS SELECT * FROM utilisateurs WHERE actif = true
 ```sql
 -- Insertion
 INSERT INTO utilisateurs (nom, email) VALUES ('Jean Dupont', 'jean@example.com');
-INSERT INTO utilisateurs (nom, email) VALUES 
+INSERT INTO utilisateurs (nom, email) VALUES
     ('Alice Martin', 'alice@example.com'),
     ('Bob Leroy', 'bob@example.com')
 RETURNING id, nom;
@@ -139,7 +134,7 @@ SELECT * FROM hierarchie;
 CREATE TABLE evenements (id SERIAL PRIMARY KEY, donnees JSONB NOT NULL);
 
 -- Insertion JSON
-INSERT INTO evenements (donnees) VALUES 
+INSERT INTO evenements (donnees) VALUES
     ('{"type": "click", "user": {"id": 1, "name": "Alice"}}');
 
 -- Requêtes JSON
@@ -180,7 +175,7 @@ REINDEX TABLE nom_table;
 
 -- Vérifier les tailles
 SELECT pg_size_pretty(pg_database_size('nom_db')) AS taille_db;
-SELECT schemaname, tablename, 
+SELECT schemaname, tablename,
     pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) AS taille
 FROM pg_tables ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC LIMIT 10;
 ```
@@ -216,6 +211,7 @@ SELECT sum(heap_blks_hit) / (sum(heap_blks_hit) + sum(heap_blks_read)) AS cache_
 ### Performance
 
 **Indexes et analyse**
+
 ```sql
 -- Analyser les performances
 EXPLAIN ANALYZE SELECT * FROM table WHERE condition;
@@ -228,6 +224,7 @@ CREATE INDEX idx_email ON utilisateurs(email);
 ```
 
 **Configuration recommandée**
+
 - `shared_buffers` : 25% de la RAM
 - `work_mem` : pour les tris et jointures
 - Activer `pg_stat_statements` pour le monitoring
@@ -235,6 +232,7 @@ CREATE INDEX idx_email ON utilisateurs(email);
 ### Sécurité
 
 **Permissions**
+
 ```sql
 -- Principe du moindre privilège
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
@@ -243,6 +241,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO lecture_seule;
 ```
 
 **Configuration**
+
 - Mots de passe forts obligatoires
 - SSL/TLS activé
 - `pg_hba.conf` correctement configuré
@@ -250,6 +249,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO lecture_seule;
 ### Développement
 
 **Transactions avec savepoints**
+
 ```sql
 BEGIN;
 SAVEPOINT mon_savepoint;
@@ -259,6 +259,7 @@ COMMIT;
 ```
 
 **Contraintes et types**
+
 ```sql
 -- CHECK constraint
 ALTER TABLE produits ADD CONSTRAINT prix_positif CHECK (prix > 0);

@@ -1,0 +1,85 @@
+---
+title: Système & Finder
+description: Raccourcis système, Finder et conseils pour développeurs macOS
+---
+
+import { Callout } from "fumadocs-ui/components/callout";
+
+## 🔴 Système & Finder
+
+### Système
+
+| Action             | Raccourci                                          | Windows équivalent            |
+| ------------------ | -------------------------------------------------- | ----------------------------- |
+| **Spotlight**      | <kbd>⌘</kbd> + <kbd>Espace</kbd>                   | <kbd>Win</kbd> + <kbd>S</kbd> |
+| **Siri**           | <kbd>Fn</kbd> + <kbd>Espace</kbd>                  | <kbd>Win</kbd> + <kbd>C</kbd> |
+| **Emojis**         | <kbd>Ctrl</kbd> + <kbd>⌘</kbd> + <kbd>Espace</kbd> | <kbd>Win</kbd> + <kbd>;</kbd> |
+| **Verrouiller**    | <kbd>Ctrl</kbd> + <kbd>⌘</kbd> + <kbd>Q</kbd>      | <kbd>Win</kbd> + <kbd>L</kbd> |
+| **Mise en veille** | <kbd>⌥</kbd> + <kbd>⌘</kbd> + <kbd>Power</kbd>     | Menu démarrer > Power         |
+| **Préférences**    | <kbd>⌘</kbd> + <kbd>,</kbd>                        | Variable selon app            |
+| **Masquer Dock**   | <kbd>⌥</kbd> + <kbd>⌘</kbd> + <kbd>D</kbd>         | Auto-hide taskbar             |
+
+### Finder
+
+| Action                | Raccourci                                        |
+| --------------------- | ------------------------------------------------ |
+| **Nouveau dossier**   | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>N</kbd>       |
+| **Dupliquer**         | <kbd>⌘</kbd> + <kbd>D</kbd>                      |
+| **Créer alias**       | <kbd>⌘</kbd> + <kbd>L</kbd>                      |
+| **Infos fichier**     | <kbd>⌘</kbd> + <kbd>I</kbd>                      |
+| **Aperçu rapide**     | <kbd>Espace</kbd> ou <kbd>⌘</kbd> + <kbd>Y</kbd> |
+| **Aller au dossier**  | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>G</kbd>       |
+| **Afficher chemin**   | <kbd>⌥</kbd> + <kbd>⌘</kbd> + <kbd>P</kbd>       |
+| **Fichiers cachés**   | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>.</kbd>       |
+| **AirDrop**           | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>R</kbd>       |
+| **Connecter serveur** | <kbd>⌘</kbd> + <kbd>K</kbd>                      |
+
+### Emplacements rapides Finder
+
+| Emplacement      | Raccourci                                  |
+| ---------------- | ------------------------------------------ |
+| **Home**         | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>H</kbd> |
+| **Desktop**      | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>D</kbd> |
+| **Documents**    | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>O</kbd> |
+| **Downloads**    | <kbd>⌥</kbd> + <kbd>⌘</kbd> + <kbd>L</kbd> |
+| **Applications** | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>A</kbd> |
+| **Utilities**    | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>U</kbd> |
+| **iCloud Drive** | <kbd>⇧</kbd> + <kbd>⌘</kbd> + <kbd>I</kbd> |
+
+## 💡 Tips & Astuces
+
+<Callout type="success">
+  **Astuce Pro** : Maintenez <kbd>⌥</kbd> en cliquant sur les menus pour révéler
+  des options cachées !
+</Callout>
+
+### Configuration Terminal recommandée
+
+```bash
+# Installation Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Outils essentiels développeur
+brew install git node python3 yarn pnpm
+brew install --cask visual-studio-code iterm2 docker raycast
+
+# Oh My Zsh pour un terminal amélioré
+sh -c "$(curl -fsSL https://raw.sh/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+### Apps recommandées pour développeurs
+
+- **[Raycast](https://raycast.com/)** - Alternative moderne à Spotlight
+- **[Ghostty](https://ghostty.org/)** - Terminal avancé
+
+### Raccourcis personnalisables utiles
+
+Dans **Préférences Système > Clavier > Raccourcis** :
+
+- Configurez les Hot Corners pour Mission Control
+- Ajoutez des raccourcis pour vos apps favorites
+- Personnalisez les Services pour automatiser des tâches
+
+---
+
+_Ce guide est optimisé pour macOS Sequoia (15.x) et versions récentes. Les raccourcis peuvent varier selon les versions._

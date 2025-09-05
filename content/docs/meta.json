@@ -14,7 +14,7 @@
     "terminal/ghostty.mdx",
     "terminal/terminal.mdx",
     "terminal/tmux.mdx",
-    "terminal/iterm2.mdx",
+    "terminal/iterm.mdx",
     "---Database---",
     "database/postgre.mdx",
     "database/mongodb.mdx"

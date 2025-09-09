@@ -16,6 +16,7 @@
     "terminal/tmux.mdx",
     "terminal/iterm.mdx",
     "---Database---",
+    "database/drizzle.mdx",
     "database/postgre.mdx",
     "database/mongodb.mdx"
   ]

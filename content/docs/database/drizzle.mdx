@@ -1,0 +1,251 @@
+---
+title: Drizzle
+description: Workflows Drizzle-kit par Environnement et commandes essentielles pour la gestion des bases de données
+---
+
+import { Callout } from "fumadocs-ui/components/callout";
+
+## ⚡ Commandes Drizzle-kit
+
+| Commande                  | Description                                           | Usage Principal           |
+| ------------------------- | ----------------------------------------------------- | ------------------------- |
+| `drizzle-kit generate`    | Génère des fichiers de migration SQL                 | Changement de schéma      |
+| `drizzle-kit migrate`     | Applique les migrations à la base de données         | Mise à jour DB            |
+| `drizzle-kit pull`        | Extrait le schéma DB vers code Drizzle               | Import DB existante       |
+| `drizzle-kit push`        | Pousse le schéma sans créer de migrations            | Prototypage rapide        |
+| `drizzle-kit studio`      | Lance l'interface web d'exploration                  | Débogage visuel           |
+| `drizzle-kit check`       | Vérifie les conflits de migrations                   | Validation pré-production |
+| `drizzle-kit up`          | Met à jour les snapshots de migrations               | Mise à jour Drizzle ORM   |
+
+### Détails des Commandes
+
+**`drizzle-kit generate`**
+- Analyse les changements dans votre schéma TypeScript
+- Crée des fichiers `.sql` versionnés dans `./drizzle`
+- Génère les commandes SQL nécessaires
+
+**`drizzle-kit migrate`**
+- Exécute séquentiellement les migrations non appliquées
+- Maintient l'historique des migrations exécutées
+
+**`drizzle-kit push`**
+- Applique les changements SANS créer de fichiers de migration
+- Plus rapide mais sans historique de versions
+
+**`drizzle-kit studio`**
+- Interface visuelle pour explorer et modifier les données
+- Permet l'exécution de requêtes SQL interactives
+
+---
+
+## 🔄 Workflows par Environnement
+
+### 🚧 Développement (Local)
+
+**Workflow Rapide (Recommandé)**
+
+```bash
+# 1. Modifier le schéma dans schema.ts
+# 2. Push direct sans migrations
+npx drizzle-kit push
+
+# 3. Vérifier visuellement
+npx drizzle-kit studio
+```
+
+**Workflow avec Migrations**
+
+```bash
+# 1. Modifier le schéma
+# 2. Générer les migrations
+npx drizzle-kit generate
+
+# 3. Vérifier les migrations
+npx drizzle-kit check
+
+# 4. Appliquer les migrations
+npx drizzle-kit migrate
+
+# 5. Explorer la DB
+npx drizzle-kit studio
+```
+
+**Reset Complet**
+
+```bash
+# Option 1: Force push
+npx drizzle-kit push --force
+
+# Option 2: Drop et recréer
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+npx drizzle-kit push
+```
+
+### 🧪 Préprod/Staging
+
+**Workflow Standard**
+
+```bash
+# 1. Récupérer les migrations
+git pull
+
+# 2. Vérifier l'état
+npx drizzle-kit check
+
+# 3. Dry run (optionnel)
+npx drizzle-kit migrate --dry-run
+
+# 4. Appliquer les migrations
+npx drizzle-kit migrate
+
+# 5. Vérification
+npx drizzle-kit studio
+```
+
+**Synchronisation Production**
+
+```bash
+# Pull le schéma de prod
+npx drizzle-kit pull --config=drizzle.config.prod.ts
+
+# Générer les migrations nécessaires
+npx drizzle-kit generate
+
+# Tester
+npx drizzle-kit migrate
+```
+
+### 🚀 Production
+
+**Workflow Sécurisé**
+
+```bash
+# 1. Backup OBLIGATOIRE
+pg_dump production_db > backup_$(date +%Y%m%d_%H%M%S).sql
+
+# 2. Vérification finale
+npx drizzle-kit check
+
+# 3. Application des migrations
+npx drizzle-kit migrate
+
+# 4. Tests de santé
+# Monitoring et vérifications
+```
+
+**Pipeline CI/CD**
+
+```yaml
+deploy:
+  steps:
+    - name: Check migrations
+      run: npx drizzle-kit check
+
+    - name: Backup database
+      run: ./scripts/backup-db.sh
+
+    - name: Run migrations
+      run: npx drizzle-kit migrate
+      env:
+        DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
+
+    - name: Verify migrations
+      run: ./scripts/verify-migrations.sh
+```
+
+---
+
+## 📋 Bonnes Pratiques
+
+| Environnement   | ✅ À faire                              | ❌ À éviter                  |
+| --------------- | --------------------------------------- | ---------------------------- |
+| **Développement** | `push` pour itération rapide          | Commit des données de test   |
+|                 | Reset DB fréquent                       | Négliger les tests           |
+|                 | Tester les migrations avant commit     |                              |
+| **Staging**     | `generate` + `migrate`                  | Ignorer les rollbacks        |
+|                 | Tester les rollbacks                    | Données irréalistes          |
+|                 | Mêmes migrations qu'en prod            |                              |
+| **Production**  | **TOUJOURS** faire un backup           | **JAMAIS** utiliser `push`   |
+|                 | Migrations testées en staging          | **JAMAIS** utiliser `--force`|
+|                 | Plan de rollback préparé               | Migrations non testées       |
+
+---
+
+## 👥 Workflow d'Équipe
+
+### Nouvelle Feature
+
+```bash
+# Développeur A
+git checkout -b feature/new-table
+
+# Modifier le schéma puis générer
+npx drizzle-kit generate
+
+# Commit schéma + migration
+git add .
+git commit -m "feat: add users table"
+git push
+```
+
+### Récupération des Changements
+
+```bash
+# Développeur B (après merge)
+git pull
+npx drizzle-kit migrate
+```
+
+### Gestion des Conflits
+
+<Callout type="warning">
+**Conflits de migrations**: Si deux développeurs créent des migrations en parallèle, suivez ces étapes pour résoudre les conflits.
+</Callout>
+
+```bash
+# 1. Pull les migrations de main
+git pull origin main
+
+# 2. Vérifier les conflits
+npx drizzle-kit check
+
+# 3. Si conflit, régénérer
+rm -rf drizzle/*_your_migration.sql
+npx drizzle-kit generate
+
+# 4. Tester et commit
+npx drizzle-kit migrate
+git add . && git commit -m "fix: resolve migration conflict"
+```
+
+---
+
+## 🎯 Comparaison: Push vs Generate+Migrate
+
+| Aspect            | **Push**         | **Generate + Migrate** |
+| ----------------- | ---------------- | ---------------------- |
+| **Vitesse**       | ⚡ Rapide        | ⏳ Plus lent           |
+| **Historique**    | ❌ Aucun         | ✅ Versionné           |
+| **Rollback**      | ❌ Impossible    | ✅ Possible            |
+| **Utilisation**   | Dev uniquement  | Staging & Prod         |
+| **Collaboration** | ⚠️ Difficile     | ✅ Facile              |
+
+<Callout type="success">
+**Règle d'Or**
+
+- **Développement** = Rapidité → `push`
+- **Staging** = Test du process → `generate` + `migrate`  
+- **Production** = Sécurité maximale → `migrate` avec backup
+</Callout>
+
+## 📚 Ressources Utiles
+
+- [Documentation officielle Drizzle](https://orm.drizzle.team/)
+- [Drizzle Kit Documentation](https://orm.drizzle.team/kit-docs/overview)
+- [Migration Guide](https://orm.drizzle.team/docs/migrations)
+- [Drizzle Studio](https://orm.drizzle.team/drizzle-studio/overview)
+
+---
+
+_Ce guide est un document vivant. N'hésitez pas à le compléter avec vos propres découvertes et cas d'usage !_
